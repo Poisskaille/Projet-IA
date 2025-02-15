@@ -7,10 +7,10 @@ public:
 	void deleteAllEnemy();
 
 
-	void createMGSPatrol(float posX, float posY);
+	void createMGSPatrol(float posX, float posY, Vector2f p1, Vector2f p2, Vector2f p3);
 	void setMenacedState();
 	bool checkCollision(const FloatRect& playerBounds);
 
 private:
-	vector<shared_ptr<PatrolMGS>> m_mgs_enemies;
+	vector<unique_ptr<PatrolMGS>> m_mgs_enemies;
 };
