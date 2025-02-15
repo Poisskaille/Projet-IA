@@ -16,9 +16,9 @@ void EnemyManager::draw(RenderWindow& window)
 	}
 }
 
-void EnemyManager::createMGSPatrol(float posX, float posY)
+void EnemyManager::createMGSPatrol(float posX, float posY, Vector2f p1, Vector2f p2, Vector2f p3)
 {
-	m_mgs_enemies.push_back(make_shared<PatrolMGS>(posX, posY));
+	m_mgs_enemies.push_back(make_unique<PatrolMGS>(posX, posY,p1,p2,p3));
 }
 
 void EnemyManager::setMenacedState()
