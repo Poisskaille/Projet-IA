@@ -44,7 +44,7 @@ int main() {
         window.clear();
         grid.draw(window);
         window.draw(player.shape);
-        manager.update(window,deltaTime,grid,player.shape.getGlobalBounds());
+        manager.update(window,deltaTime,grid,player.shape.getGlobalBounds(),player.shape.getPosition());
         window.display();
     }
     return 0;
