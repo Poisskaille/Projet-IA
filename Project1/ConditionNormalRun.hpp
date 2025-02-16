@@ -6,7 +6,7 @@ private:
 public:
     ConditionNormalRun(Blackboard& bb) : blackboard(bb) {}
     NodeState execute() override {
-        // Condition : Etat basique si rien ne se passe
-        return;
+        if(blackboard.getState() == EnemyState::NORMAL){ return NodeState::SUCCESS; }       
+        return NodeState::FAILURE;
     }
 };

@@ -146,29 +146,12 @@
     <ClCompile Include="Player.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="AlerteRun.hpp" />
-    <ClInclude Include="Blackboard.hpp" />
-    <ClInclude Include="BTNode.hpp" />
-    <ClInclude Include="ConditionAlerteRun.hpp" />
-    <ClInclude Include="ConditionMenanceRun.hpp" />
-    <ClInclude Include="ConditionNormalLook.hpp" />
-    <ClInclude Include="ConditionNormalRun.hpp" />
-    <ClInclude Include="ConditionSpottedRun.hpp" />
     <ClInclude Include="Enemy.hpp" />
     <ClInclude Include="EnemyManager.hpp" />
     <ClInclude Include="Entity.hpp" />
     <ClInclude Include="Grid.hpp" />
-    <ClInclude Include="MenaceRandomRun.hpp" />
-    <ClInclude Include="NormalLookAround.hpp" />
-    <ClInclude Include="NormalRun.hpp" />
     <ClInclude Include="PatrolMGS.hpp" />
     <ClInclude Include="Player.hpp" />
-    <ClInclude Include="SelectorNode.hpp" />
-    <ClInclude Include="SequenceAlerte.hpp" />
-    <ClInclude Include="SequenceMenace.hpp" />
-    <ClInclude Include="SequenceNormal.hpp" />
-    <ClInclude Include="SequenceSpotted.hpp" />
-    <ClInclude Include="SpottedRun.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

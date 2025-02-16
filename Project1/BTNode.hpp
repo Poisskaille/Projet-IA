@@ -1,8 +1,10 @@
 #include <iostream>
 #include <vector>
 #include <memory>
-#include "EnemyManager.hpp"
 #include "Blackboard.hpp"
+#include "Player.hpp"
+
+class PatrolMGS;
  
 enum class NodeState { SUCCESS, FAILURE, RUNNING };
 

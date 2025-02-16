@@ -9,9 +9,10 @@ public:
 
 	void createMGSPatrol(float posX, float posY, Vector2f p1, Vector2f p2, Vector2f p3);
 	void setMenacedState();
+
 	bool checkCollision(const FloatRect& playerBounds);
 	bool checkFOV(const FloatRect& playerBounds);
-	bool checkSound(const float& playerSpeed, const FloatRect& playerBounds, const Vector2f& playerPos);
+	bool checkSpotted(const float& playerSpeed, const FloatRect& playerBounds, const Vector2f& playerPos);
 
 private:
 	vector<unique_ptr<PatrolMGS>> m_mgs_enemies;

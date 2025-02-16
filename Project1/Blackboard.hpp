@@ -3,7 +3,7 @@
 
 using namespace std;
 
-enum class EnemyState {NORMAL, SPOTTER, MENACE, ALERTE,};
+enum class EnemyState {NORMAL, SPOTTED, MENACE, ALERTE,};
 
 class Blackboard {
 private:

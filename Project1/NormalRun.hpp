@@ -1,11 +1,16 @@
 #include "BTNode.hpp"
+#include "PatrolMGS.hpp"
 
 class NormalRun : public BTNode {
 private:
+    PatrolMGS* enemy;
 public:
-    NormalRun() {}
+    NormalRun(PatrolMGS* enemy): enemy(enemy) {}
     NodeState execute() override {
-        // Va de point en point
+        if (!enemy) return NodeState::FAILURE;
+
+        enemy->Patrol(0.016f);
+
         return NodeState::SUCCESS;
     }
 };

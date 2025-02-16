@@ -1,10 +1,10 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
-#include "Player.hpp"
+#include "EnemyManager.hpp"
 #include "Enemy.hpp"
 #include "Grid.hpp"
 #include <vector>
-#include "EnemyManager.hpp"
+#include "BTNode.hpp"
 
 EnemyManager manager;
 
@@ -20,8 +20,8 @@ int main() {
     Grid grid;
     grid.loadFromFile("map.txt");
 
-    manager.createMGSPatrol(400, 400, {100,100}, {500,200},{300,300});
-    manager.createMGSPatrol(500, 500, { 300,300 }, { 600,200 }, { 100,100 });
+    manager.createMGSPatrol(100, 300, {100,100}, {500,200},{300,300});
+    manager.createMGSPatrol(600,120, {300,300}, {600,200}, {100,100});
 
     Clock clock;
 
