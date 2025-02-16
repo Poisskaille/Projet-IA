@@ -17,15 +17,20 @@ public:
 
 	void setSpottedState();
 
+	void rayCasting(Grid& grid,RenderWindow& window);
+
+	ConvexShape getCasting();
 
 private:
 	float SPEED = 100.0f;
 	Vector2f m_position;
 
-	int currentWaypoint;
+	int m_currentWaypoint;
 	Vector2f m_p1, m_p2, m_p3;
+	ConvexShape m_cone;
+	bool m_canMove = true;
 
-	bool canMove = true;
+	Vector2f m_direction;
 	
-	float time = 0;
+	float m_time = 0;
 };  
