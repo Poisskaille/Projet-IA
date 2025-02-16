@@ -4,11 +4,15 @@ void EnemyManager::update(RenderWindow& window, float deltaTime, Grid& grid,cons
 {
 	draw(window);
 	if (checkCollision(playerBounds)) { cout << "Collision" << endl; }
-	if (checkFOV(playerBounds)) { cout << "Player vu" << endl; }
 	if (checkSpotted(playerSpeed, playerBounds,playerPos)) { cout << "Player entendu / appercu" << endl; }
 	for (auto& enemy : m_mgs_enemies) {
-		enemy->update(deltaTime,grid);
+		enemy->update(deltaTime,grid,playerPos);
 		enemy->rayCasting(grid, window);
+	}
+	if (checkFOV(playerBounds)) {
+		for (auto& enemy : m_mgs_enemies) {
+			enemy->setAlerteState();
+		}
 	}
 }
 
@@ -54,7 +58,7 @@ bool EnemyManager::checkFOV(const FloatRect& playerBounds)
 bool EnemyManager::checkSpotted(const float& playerSpeed, const FloatRect& playerBounds, const Vector2f& playerPos)
 {
 	for (auto& enemy : m_mgs_enemies) {
-		if (enemy->getSoundDetection().getGlobalBounds().intersects(playerBounds) && playerSpeed > 200 || enemy->getSecondCasting().getGlobalBounds().intersects(playerBounds) && playerSpeed > 200) {
+		if (enemy->getSoundDetection().getGlobalBounds().intersects(playerBounds) && playerSpeed > 200 && enemy->getState() != 1 || enemy->getSecondCasting().getGlobalBounds().intersects(playerBounds) && playerSpeed > 200 && enemy->getState()!= 1) {
 			enemy->setTime(0.f);
 			enemy->setMove(false);
 			enemy->setSpottedState(playerPos);

@@ -39,7 +39,7 @@ int main() {
             manager.setMenacedState();
         }
 
-        player.update(deltaTime, grid);
+        player.update(deltaTime, grid,player.shape.getPosition());
 
         window.clear();
         grid.draw(window);

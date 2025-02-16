@@ -6,19 +6,23 @@
 class PatrolMGS : public Enemy {
 public:
 
+    enum class State { NORMAL, MENACE, ALERTE, SPOTTED, STUNNED };
+
     PatrolMGS(float x, float y, Vector2f p1, Vector2f p2, Vector2f p3);
     ~PatrolMGS();
 
-    void update(float deltaTime, Grid& grid) override;
+    void update(float deltaTime, Grid& grid, const Vector2f& playerPos) override;
     void draw(RenderWindow& window);
 
     void Patrol(float deltaTime);
     void Spotted(float deltaTime);
+    void chase(const Vector2f& playerPos,float deltaTime);
 
     void setMenacedState();
     void setNormalState();
     void setAlerteState();
     void setSpottedState(const Vector2f& playerPos);
+    void setStunnedState();
 
     void rayCasting(Grid& grid, RenderWindow& window);
 
@@ -29,6 +33,8 @@ public:
     void setTime(float time);
     void setMove(bool value);
 
+    int getState();
+    Clock m_delay;
 private:
     
     float SPEED = 100.0f;
@@ -49,7 +55,6 @@ private:
     float m_time = 0;
     bool isNormal = true;
 
-    enum class State {NORMAL,MENACE,ALERTE,SPOTTED};
     State m_state;
 
 };

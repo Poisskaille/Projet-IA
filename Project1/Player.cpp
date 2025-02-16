@@ -4,7 +4,7 @@
 
 Player::Player(float x, float y) : Entity(x, y, Color::Blue) {}
 
-void Player::update(float deltaTime, Grid& grid) {
+void Player::update(float deltaTime, Grid& grid,const Vector2f& playerPos) {
     Vector2f movement(0.f, 0.f);
     if (Keyboard::isKeyPressed(Keyboard::Z)) movement.y -= SPEED * deltaTime;
     if (Keyboard::isKeyPressed(Keyboard::S)) movement.y += SPEED * deltaTime;
