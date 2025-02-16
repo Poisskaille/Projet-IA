@@ -7,6 +7,11 @@ PatrolMGS::PatrolMGS(float x, float y, Vector2f p1, Vector2f p2, Vector2f p3)
 	shape.setSize({ 20, 20 });
 	shape.setFillColor(Color::Magenta);
 	shape.setPosition(m_position);
+    shape.setOrigin(10, 10);
+    m_sounddetection.setRadius(150);
+    m_sounddetection.setPosition(shape.getPosition());
+    m_sounddetection.setFillColor(Color(167, 255, 145, 30));
+    m_sounddetection.setOrigin(150, 150);
 }
 
 PatrolMGS::~PatrolMGS()
@@ -15,8 +20,20 @@ PatrolMGS::~PatrolMGS()
 
 void PatrolMGS::update(float deltaTime, Grid& grid)
 {
-	Patrol(deltaTime);
-	if (!m_canMove) {m_time += deltaTime;}
+    if (isNormal) {
+        Patrol(deltaTime);
+
+    }
+    else {
+        Spotted(deltaTime);
+    }
+    if (!m_canMove) { m_time += deltaTime; }
+}
+
+void PatrolMGS::draw(RenderWindow& window)
+{
+    window.draw(shape);
+    window.draw(m_sounddetection);
 }
 
 void PatrolMGS::Patrol(float deltaTime) {
@@ -33,11 +50,30 @@ void PatrolMGS::Patrol(float deltaTime) {
 		direction /= distance;
         m_direction = direction;
 
-		m_position += direction * 2.0f;
+		m_position += direction * SPEED * deltaTime;
 	}
 
-	if (m_canMove) {shape.setPosition(m_position);}
+    if (m_canMove) { shape.setPosition(m_position); m_sounddetection.setPosition(shape.getPosition()); }
 	
+}
+
+void PatrolMGS::Spotted(float deltaTime) {
+    Vector2f direction = m_playerPos - m_position;
+    float distance = sqrt(direction.x * direction.x + direction.y * direction.y);
+
+    if (distance < 5.0f) {
+        m_canMove = false;
+        if (m_time >= 4) { m_canMove = true; isNormal = true; m_time = 0; }
+    }
+    else {
+        direction /= distance;
+        m_direction = direction;
+        m_position += direction;
+
+        m_position += direction * SPEED * deltaTime;
+    }
+    shape.setPosition(m_position);
+    m_sounddetection.setPosition(shape.getPosition());
 }
 
 void PatrolMGS::setMenacedState()
@@ -56,9 +92,11 @@ void PatrolMGS::setAlerteState() {
 	shape.setFillColor(Color::Red);
 }
 
-void PatrolMGS::setSpottedState() {
-	SPEED = 100.f;
-	shape.setFillColor(Color(221, 235, 23));
+void PatrolMGS::setSpottedState(const Vector2f& playerPos) {
+    m_playerPos = playerPos;
+    isNormal = false;
+	SPEED = 50.f;
+	shape.setFillColor(Color(107, 255, 250));
 }
 
 void PatrolMGS::rayCasting(Grid& grid, RenderWindow& window) {
@@ -106,7 +144,6 @@ void PatrolMGS::rayCasting(Grid& grid, RenderWindow& window) {
     window.draw(m_cone);
 }
 
-ConvexShape PatrolMGS::getCasting()
-{
-    return m_cone;
-}
+ConvexShape PatrolMGS::getCasting() { return m_cone; }
+
+CircleShape PatrolMGS::getSoundDetection() { return m_sounddetection; }
