@@ -3,10 +3,13 @@
 class ConditionSpottedRun : public BTNode {
 private:
     Blackboard& blackboard;
+    Player& p;
 public:
-    ConditionSpottedRun(Blackboard& bb) : blackboard(bb) {}
+    ConditionSpottedRun(Blackboard& bb, Player& pl) : blackboard(bb),p(pl) {}
     NodeState execute() override {
-        // Condition : Si un ennemi a appercu le joueur
+       /* if () {
+            blackboard.setState(EnemyState::SPOTTED);
+        }*/
         return;
     }
 };

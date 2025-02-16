@@ -13,30 +13,6 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Fichiers d%27en-tête\BehaviorTree">
-      <UniqueIdentifier>{dd81f010-3b58-4f0e-9415-b8525cd379aa}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Fichiers d%27en-tête\BehaviorTree\Composite">
-      <UniqueIdentifier>{0420f105-18f5-4d22-b6db-a9027efc55a7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Fichiers d%27en-tête\BehaviorTree\Leaf">
-      <UniqueIdentifier>{e70206f5-60f9-4eed-b012-213d6a3af6b2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Fichiers d%27en-tête\BehaviorTree\Composite\Sequence">
-      <UniqueIdentifier>{58813664-dae8-49b5-b612-c57a4a920323}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Fichiers d%27en-tête\BehaviorTree\Leaf\Alerte">
-      <UniqueIdentifier>{3b61891a-b102-4a92-b863-035d6b9c7cb9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Fichiers d%27en-tête\BehaviorTree\Leaf\Spotted">
-      <UniqueIdentifier>{8f556860-fe18-4eb9-a67a-80dd73b7bfd2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Fichiers d%27en-tête\BehaviorTree\Leaf\Menace">
-      <UniqueIdentifier>{cfaa5941-7928-412a-9a9e-a5a4d8782724}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Fichiers d%27en-tête\BehaviorTree\Leaf\Normal">
-      <UniqueIdentifier>{9ffb7802-d088-433e-8575-144ab61f765e}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -79,57 +55,6 @@
     </ClInclude>
     <ClInclude Include="EnemyManager.hpp">
       <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="BTNode.hpp">
-      <Filter>Fichiers d%27en-tête\BehaviorTree</Filter>
-    </ClInclude>
-    <ClInclude Include="Blackboard.hpp">
-      <Filter>Fichiers d%27en-tête\BehaviorTree</Filter>
-    </ClInclude>
-    <ClInclude Include="SelectorNode.hpp">
-      <Filter>Fichiers d%27en-tête\BehaviorTree\Composite</Filter>
-    </ClInclude>
-    <ClInclude Include="SequenceAlerte.hpp">
-      <Filter>Fichiers d%27en-tête\BehaviorTree\Composite\Sequence</Filter>
-    </ClInclude>
-    <ClInclude Include="SequenceNormal.hpp">
-      <Filter>Fichiers d%27en-tête\BehaviorTree\Composite\Sequence</Filter>
-    </ClInclude>
-    <ClInclude Include="SequenceSpotted.hpp">
-      <Filter>Fichiers d%27en-tête\BehaviorTree\Composite\Sequence</Filter>
-    </ClInclude>
-    <ClInclude Include="SequenceMenace.hpp">
-      <Filter>Fichiers d%27en-tête\BehaviorTree\Composite\Sequence</Filter>
-    </ClInclude>
-    <ClInclude Include="AlerteRun.hpp">
-      <Filter>Fichiers d%27en-tête\BehaviorTree\Leaf\Alerte</Filter>
-    </ClInclude>
-    <ClInclude Include="MenaceRandomRun.hpp">
-      <Filter>Fichiers d%27en-tête\BehaviorTree\Leaf\Menace</Filter>
-    </ClInclude>
-    <ClInclude Include="NormalRun.hpp">
-      <Filter>Fichiers d%27en-tête\BehaviorTree\Leaf\Normal</Filter>
-    </ClInclude>
-    <ClInclude Include="NormalLookAround.hpp">
-      <Filter>Fichiers d%27en-tête\BehaviorTree\Leaf\Normal</Filter>
-    </ClInclude>
-    <ClInclude Include="SpottedRun.hpp">
-      <Filter>Fichiers d%27en-tête\BehaviorTree\Leaf\Spotted</Filter>
-    </ClInclude>
-    <ClInclude Include="ConditionAlerteRun.hpp">
-      <Filter>Fichiers d%27en-tête\BehaviorTree\Leaf\Alerte</Filter>
-    </ClInclude>
-    <ClInclude Include="ConditionMenanceRun.hpp">
-      <Filter>Fichiers d%27en-tête\BehaviorTree\Leaf\Menace</Filter>
-    </ClInclude>
-    <ClInclude Include="ConditionNormalLook.hpp">
-      <Filter>Fichiers d%27en-tête\BehaviorTree\Leaf\Normal</Filter>
-    </ClInclude>
-    <ClInclude Include="ConditionNormalRun.hpp">
-      <Filter>Fichiers d%27en-tête\BehaviorTree\Leaf\Normal</Filter>
-    </ClInclude>
-    <ClInclude Include="ConditionSpottedRun.hpp">
-      <Filter>Fichiers d%27en-tête\BehaviorTree\Leaf\Spotted</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

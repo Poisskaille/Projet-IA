@@ -1,9 +1,8 @@
 #include "PatrolMGS.hpp"
 
 PatrolMGS::PatrolMGS(float x, float y, Vector2f p1, Vector2f p2, Vector2f p3)
-	: Enemy(x, y), m_position(x, y), m_p1(p1), m_p2(p2), m_p3(p3), m_currentWaypoint(0)
+	: Enemy(x, y), m_position(x, y), m_p1(p1), m_p2(p2), m_p3(p3), m_currentWaypoint(0), m_state(State::NORMAL)
 {
-
 	shape.setSize({ 20, 20 });
 	shape.setFillColor(Color::Magenta);
 	shape.setPosition(m_position);
@@ -14,18 +13,21 @@ PatrolMGS::PatrolMGS(float x, float y, Vector2f p1, Vector2f p2, Vector2f p3)
     m_sounddetection.setOrigin(150, 150);
 }
 
-PatrolMGS::~PatrolMGS()
-{
-}
+PatrolMGS::~PatrolMGS(){}
 
 void PatrolMGS::update(float deltaTime, Grid& grid)
 {
-    if (isNormal) {
+    switch (m_state) {
+    case State::NORMAL:
         Patrol(deltaTime);
-
-    }
-    else {
-        Spotted(deltaTime);
+        break;
+    case State::SPOTTED:
+        if (m_time > 1) { Spotted(deltaTime); }
+        break;
+    case State::MENACE:
+        break;
+    case State::ALERTE:
+            break;      
     }
     if (!m_canMove) { m_time += deltaTime; }
 }
@@ -47,6 +49,7 @@ void PatrolMGS::Patrol(float deltaTime) {
 		if (m_time >= 2) { m_currentWaypoint = (m_currentWaypoint + 1) % 3; m_canMove = true; m_time = 0; }		
 	}
 	else {
+        m_canMove = true;
 		direction /= distance;
         m_direction = direction;
 
@@ -63,7 +66,7 @@ void PatrolMGS::Spotted(float deltaTime) {
 
     if (distance < 5.0f) {
         m_canMove = false;
-        if (m_time >= 4) { m_canMove = true; isNormal = true; m_time = 0; }
+        if (m_time >= 4) { m_canMove = true; isNormal = true; m_time = 0; setNormalState(); }
     }
     else {
         direction /= distance;
@@ -78,23 +81,26 @@ void PatrolMGS::Spotted(float deltaTime) {
 
 void PatrolMGS::setMenacedState()
 {
+    m_state = State::MENACE;
 	SPEED = 150.f;
 	shape.setFillColor(Color::Yellow);
 }
 
 void PatrolMGS::setNormalState() {
+    m_state = State::NORMAL;
 	SPEED = 100.f;
 	shape.setFillColor(Color::Green);
 }
 
 void PatrolMGS::setAlerteState() {
+    m_state = State::SPOTTED;
 	SPEED = 200.f;
 	shape.setFillColor(Color::Red);
 }
 
 void PatrolMGS::setSpottedState(const Vector2f& playerPos) {
     m_playerPos = playerPos;
-    isNormal = false;
+    m_state = State::SPOTTED;
 	SPEED = 50.f;
 	shape.setFillColor(Color(107, 255, 250));
 }
@@ -102,15 +108,20 @@ void PatrolMGS::setSpottedState(const Vector2f& playerPos) {
 void PatrolMGS::rayCasting(Grid& grid, RenderWindow& window) {
     float fov = 40.f;
     int numRays = 30;
-    float maxDistance = 150.0f;
+    float maxDistancePrimary = 150.0f;
+    float maxDistanceSecondary = 300.0f;
 
     float angleStart = -fov / 2.0f;
     float angleStep = fov / static_cast<float>(numRays - 1);
 
-    m_cone.setPointCount(numRays + 1);
-    m_cone.setFillColor(Color(150, 255, 243, 100));
+    m_primaryCone.setPointCount(numRays + 1);
+    m_primaryCone.setFillColor(Color(150, 255, 243, 100));
 
-    m_cone.setPoint(0, m_position);
+    m_secondaryCone.setPointCount(numRays + 1);
+    m_secondaryCone.setFillColor(Color(108, 217, 204, 50));
+
+    m_primaryCone.setPoint(0, m_position);
+    m_secondaryCone.setPoint(0, m_position);
 
     float baseAngle = atan2(m_direction.y, m_direction.x) * 180.f / 3.14159f;
 
@@ -119,15 +130,16 @@ void PatrolMGS::rayCasting(Grid& grid, RenderWindow& window) {
         float rad = angle * 3.14159f / 180.0f;
 
         Vector2f direction(cos(rad), sin(rad));
-        Vector2f rayPos = m_position;
 
-        float distance = maxDistance;
-        while (distance > 0) {
-            rayPos += direction * 5.0f;
-            distance -= 5.0f;
 
-            int gridX = static_cast<int>(rayPos.x) / CELL_SIZE;
-            int gridY = static_cast<int>(rayPos.y) / CELL_SIZE;
+        Vector2f rayPosPrimary = m_position;
+        float distancePrimary = maxDistancePrimary;
+        while (distancePrimary > 0) {
+            rayPosPrimary += direction * 5.0f;
+            distancePrimary -= 5.0f;
+
+            int gridX = static_cast<int>(rayPosPrimary.x) / CELL_SIZE;
+            int gridY = static_cast<int>(rayPosPrimary.y) / CELL_SIZE;
 
             if (gridX < 0 || gridX >= GRID_WIDTH || gridY < 0 || gridY >= GRID_HEIGHT) {
                 break;
@@ -138,12 +150,38 @@ void PatrolMGS::rayCasting(Grid& grid, RenderWindow& window) {
             }
         }
 
-        m_cone.setPoint(i + 1, rayPos);
+        Vector2f rayPosSecondary = m_position;
+        float distanceSecondary = maxDistanceSecondary;
+        while (distanceSecondary > 0) {
+            rayPosSecondary += direction * 5.0f;
+            distanceSecondary -= 5.0f;
+
+            int gridX = static_cast<int>(rayPosSecondary.x) / CELL_SIZE;
+            int gridY = static_cast<int>(rayPosSecondary.y) / CELL_SIZE;
+
+            if (gridX < 0 || gridX >= GRID_WIDTH || gridY < 0 || gridY >= GRID_HEIGHT) {
+                break;
+            }
+
+            if (!grid.getCell(gridX, gridY).walkable) {
+                break;
+            }
+        }
+
+        m_primaryCone.setPoint(i + 1, rayPosPrimary);
+        m_secondaryCone.setPoint(i + 1, rayPosSecondary);
     }
 
-    window.draw(m_cone);
+    window.draw(m_secondaryCone);
+    window.draw(m_primaryCone);
 }
 
-ConvexShape PatrolMGS::getCasting() { return m_cone; }
+ConvexShape PatrolMGS::getFirstCasting() { return m_primaryCone; }
+
+ConvexShape PatrolMGS::getSecondCasting(){ return m_secondaryCone; }
 
 CircleShape PatrolMGS::getSoundDetection() { return m_sounddetection; }
+
+void PatrolMGS::setTime(float time){ m_time = time; }
+
+void PatrolMGS::setMove(bool value){ m_canMove = value; }
