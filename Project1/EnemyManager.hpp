@@ -2,7 +2,7 @@
 
 class EnemyManager {
 public:
-	void update(RenderWindow& window, float deltaTime, Grid& grid, const FloatRect& playerBounds, const Vector2f playerPos);
+	void update(RenderWindow& window, float deltaTime, Grid& grid, const FloatRect& playerBounds, const Vector2f playerPos, const float& playerSpeed);
 	void draw(RenderWindow& window);
 	void deleteAllEnemy();
 
@@ -11,6 +11,7 @@ public:
 	void setMenacedState();
 	bool checkCollision(const FloatRect& playerBounds);
 	bool checkFOV(const FloatRect& playerBounds);
+	bool checkSound(const float& playerSpeed, const FloatRect& playerBounds, const Vector2f& playerPos);
 
 private:
 	vector<unique_ptr<PatrolMGS>> m_mgs_enemies;

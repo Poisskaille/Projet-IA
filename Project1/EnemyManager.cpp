@@ -1,10 +1,11 @@
 #include "EnemyManager.hpp"
 
-void EnemyManager::update(RenderWindow& window, float deltaTime, Grid& grid,const FloatRect& playerBounds, const Vector2f playerPos)
+void EnemyManager::update(RenderWindow& window, float deltaTime, Grid& grid,const FloatRect& playerBounds, const Vector2f playerPos,const float& playerSpeed)
 {
 	draw(window);
 	if (checkCollision(playerBounds)) { cout << "Collision" << endl; }
 	if (checkFOV(playerBounds)) { cout << "Player vu" << endl; }
+	if (checkSound(playerSpeed, playerBounds,playerPos)) { cout << "Player entendu" << endl; }
 	for (auto& enemy : m_mgs_enemies) {
 		enemy->update(deltaTime,grid);
 		enemy->rayCasting(grid, window);
@@ -14,7 +15,7 @@ void EnemyManager::update(RenderWindow& window, float deltaTime, Grid& grid,cons
 void EnemyManager::draw(RenderWindow& window)
 {	
 	for (auto& enemy : m_mgs_enemies) {
-		window.draw(enemy->shape);		
+		enemy->draw(window);
 	}
 }
 
@@ -44,6 +45,17 @@ bool EnemyManager::checkFOV(const FloatRect& playerBounds)
 {
 	for (auto& enemy : m_mgs_enemies) {
 		if (playerBounds.intersects(enemy->getCasting().getGlobalBounds())) {
+			return true;
+		}
+	}
+	return false;
+}
+
+bool EnemyManager::checkSound(const float& playerSpeed, const FloatRect& playerBounds, const Vector2f& playerPos)
+{
+	for (auto& enemy : m_mgs_enemies) {
+		if (enemy->getSoundDetection().getGlobalBounds().intersects(playerBounds) && playerSpeed > 200) {
+			enemy->setSpottedState(playerPos);
 			return true;
 		}
 	}
