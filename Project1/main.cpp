@@ -15,13 +15,14 @@ int main() {
     RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Jeu SFML - IA Ennemis");
     window.setFramerateLimit(60);
 
-    Player player(200, 400);
+    Player player(100, 400);
     //vector<Enemy> enemies = { Enemy(100, 100), Enemy(700, 100) };
     Grid grid;
     grid.loadFromFile("map.txt");
 
-    manager.createMGSPatrol(100, 300, {100,100}, {500,200},{300,300});
-    manager.createMGSPatrol(600,120, {300,300}, {600,200}, {100,100});
+    manager.createMGSPatrol(100, 300, { 2, 2 }, { 3, 15 }, { 14, 9 });
+    manager.createMGSPatrol(600, 120, { 18, 3 }, { 10, 22 }, { 30, 6 });
+
 
     Clock clock;
 

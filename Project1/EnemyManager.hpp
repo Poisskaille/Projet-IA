@@ -8,7 +8,7 @@ public:
 	void deleteAllEnemy();
 
 
-	void createMGSPatrol(float posX, float posY, Vector2f p1, Vector2f p2, Vector2f p3);
+	void createMGSPatrol(float posX, float posY, Vector2i p1, Vector2i p2, Vector2i p3);
 	void setMenacedState();
 
 	void setNormalState();

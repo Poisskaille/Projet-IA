@@ -8,7 +8,7 @@ public:
 
     enum class State { NORMAL, MENACE, ALERTE, SPOTTED, STUNNED };
 
-    PatrolMGS(float x, float y, Vector2f p1, Vector2f p2, Vector2f p3);
+    PatrolMGS(float x, float y, Vector2i p1, Vector2i p2, Vector2i p3);
     ~PatrolMGS();
 
     void update(float deltaTime, Grid& grid, const Vector2f& playerPos) override;
@@ -46,7 +46,7 @@ private:
    
     vector<Vector2f>m_path;
     int m_currentWaypoint;
-    Vector2f m_p1, m_p2, m_p3;
+    Vector2i m_p1, m_p2, m_p3;
     
     ConvexShape m_primaryCone;
     ConvexShape m_secondaryCone;
