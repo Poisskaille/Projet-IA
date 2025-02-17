@@ -2,19 +2,31 @@
 #include "Player.hpp"
 #include <SFML/Window/Keyboard.hpp>
 
-Player::Player(float x, float y) : Entity(x, y, Color::Blue) {}
+Player::Player(float x, float y) : Entity(x, y, Color::Blue) {
+    m_stunZone.setRadius(30);
+    m_stunZone.setOrigin(20,20);
+    m_stunZone.setPosition(shape.getPosition());
+    m_stunZone.setFillColor(Color::Transparent);
+}
 
-void Player::update(float deltaTime, Grid& grid) {
+void Player::update(float deltaTime, Grid& grid,const Vector2f& playerPos) {
     Vector2f movement(0.f, 0.f);
     if (Keyboard::isKeyPressed(Keyboard::Z)) movement.y -= SPEED * deltaTime;
     if (Keyboard::isKeyPressed(Keyboard::S)) movement.y += SPEED * deltaTime;
     if (Keyboard::isKeyPressed(Keyboard::Q)) movement.x -= SPEED * deltaTime;
     if (Keyboard::isKeyPressed(Keyboard::D)) movement.x += SPEED * deltaTime;
-    if (Keyboard::isKeyPressed(Keyboard::LShift)) SPEED = 400;
+    if (Keyboard::isKeyPressed(Keyboard::LShift)) { SPEED = 400; }
     else { SPEED = 200.f; }
+    if (Mouse::isButtonPressed(Mouse::Left) && !isStuning) { isStuning = true; delay.restart(); }
+
+    if (delay.getElapsedTime().asSeconds() > 0.5f) {
+        isStuning = false;
+    }
 
     Vector2f newPosition = shape.getPosition() + movement;
     FloatRect newBounds(newPosition, shape.getSize());
+
+    m_stunZone.setPosition(shape.getPosition());
 
     // Vérifier les quatre coins du joueur
     auto isWalkable = [&](float x, float y) {
@@ -29,4 +41,14 @@ void Player::update(float deltaTime, Grid& grid) {
         isWalkable(newBounds.left + newBounds.width - 1, newBounds.top + newBounds.height - 1)) {
         shape.move(movement);
     }
+}
+
+CircleShape Player::getStunZone()
+{
+    return m_stunZone;
+}
+
+bool Player::getStun()
+{
+    return isStuning;
 }

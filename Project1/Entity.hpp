@@ -14,7 +14,7 @@ public:
     Vector2f velocity;
 
     Entity(float x, float y, Color color);
-    virtual void update(float deltaTime, Grid& grid) = 0;
+    virtual void update(float deltaTime, Grid& grid, const Vector2f& playerPos) = 0;
 };
 
 #endif // ENTITY_HPP
