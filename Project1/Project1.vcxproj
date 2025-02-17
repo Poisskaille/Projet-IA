@@ -145,6 +145,8 @@
     <ClCompile Include="GOAPPlanner.cpp" />
     <ClCompile Include="Grid.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Node.cpp" />
+    <ClCompile Include="Pathfinding.cpp" />
     <ClCompile Include="PatrolMGS.cpp" />
     <ClCompile Include="Player.cpp" />
   </ItemGroup>
@@ -156,6 +158,8 @@
     <ClInclude Include="Goal.hpp" />
     <ClInclude Include="GOAPPlanner.hpp" />
     <ClInclude Include="Grid.hpp" />
+    <ClInclude Include="Node.hpp" />
+    <ClInclude Include="Pathfinding.hpp" />
     <ClInclude Include="PatrolMGS.hpp" />
     <ClInclude Include="Player.hpp" />
   </ItemGroup>

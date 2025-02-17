@@ -2,6 +2,9 @@
 #define PATROLMGS_HPP
 
 #include "Enemy.hpp"
+#include "Pathfinding.hpp"
+
+
 
 class PatrolMGS : public Enemy {
 public:
@@ -35,6 +38,7 @@ public:
 
     int getState();
     Clock m_delay;
+    Pathfinding pathfinding;
 private:
     
     float SPEED = 100.0f;
@@ -44,7 +48,8 @@ private:
     Vector2f m_direction;
     Vector2f m_playerPos;
    
-    vector<Vector2f>m_path;
+    vector<Vector2i>m_path;
+    int m_pathIndex = 0;
     int m_currentWaypoint;
     Vector2i m_p1, m_p2, m_p3;
     
