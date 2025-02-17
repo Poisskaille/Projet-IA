@@ -14,7 +14,7 @@ public:
     void update(float deltaTime, Grid& grid, const Vector2f& playerPos) override;
     void draw(RenderWindow& window);
 
-    void Patrol(float deltaTime);
+    void Patrol(float deltaTime, Grid& grid);
     void Spotted(float deltaTime);
     void chase(const Vector2f& playerPos,float deltaTime);
 
@@ -44,6 +44,7 @@ private:
     Vector2f m_direction;
     Vector2f m_playerPos;
    
+    vector<Vector2f>m_path;
     int m_currentWaypoint;
     Vector2f m_p1, m_p2, m_p3;
     

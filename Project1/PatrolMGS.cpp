@@ -19,18 +19,21 @@ void PatrolMGS::update(float deltaTime, Grid& grid, const Vector2f& playerPos)
 {
     switch (m_state) {
     case State::NORMAL:
-        Patrol(deltaTime);
+        Patrol(deltaTime,grid);
         break;
     case State::SPOTTED:
         if (m_time > 1) { Spotted(deltaTime); } 
         break;
     case State::MENACE:
+        if (m_delay.getElapsedTime().asSeconds() > 5) { setNormalState(); }
         break;
     case State::ALERTE:
             chase(playerPos, deltaTime);
-            if (m_delay.getElapsedTime().asSeconds() > 5) { setNormalState(); }
+            cout << m_delay.getElapsedTime().asSeconds() << endl;
+            if (m_delay.getElapsedTime().asSeconds() > 2) { setMenacedState(); }
             break;
     case State::STUNNED:
+        if (m_delay.getElapsedTime().asSeconds() > 5) { setMenacedState(); }
         break;
     }
     if (!m_canMove) { m_time += deltaTime; }
@@ -43,7 +46,7 @@ void PatrolMGS::draw(RenderWindow& window)
     window.draw(m_sounddetection);
 }
 
-void PatrolMGS::Patrol(float deltaTime) {
+void PatrolMGS::Patrol(float deltaTime, Grid& grid) {
 	Vector2f waypoints[3] = { m_p1, m_p2, m_p3 };
 	Vector2f target = waypoints[m_currentWaypoint];
 	Vector2f direction = target - m_position;
@@ -97,6 +100,7 @@ void PatrolMGS::chase(const Vector2f& playerPos, float deltaTime) {
 
 void PatrolMGS::setMenacedState()
 {
+    m_delay.restart();
     m_state = State::MENACE;
     m_time = 0.f;
 	SPEED = 110.f;
@@ -124,6 +128,7 @@ void PatrolMGS::setSpottedState(const Vector2f& playerPos) {
 }
 
 void PatrolMGS::setStunnedState() {
+    m_delay.restart();
     m_state = State::STUNNED;
     m_time = 0.f;
     SPEED = 0.f;
@@ -214,6 +219,9 @@ int PatrolMGS::getState()
     switch (m_state) {
     case State::ALERTE:
         return 1;
+        break;
+    case State::STUNNED:
+        return 2;
         break;
     }
 }

@@ -39,12 +39,17 @@ int main() {
             manager.setMenacedState();
         }
 
+        if (Keyboard::isKeyPressed(Keyboard::X)) {
+            manager.setNormalState();
+        }
+
         player.update(deltaTime, grid,player.shape.getPosition());
 
         window.clear();
         grid.draw(window);
+        window.draw(player.getStunZone());
         window.draw(player.shape);
-        manager.update(window,deltaTime,grid,player.shape.getGlobalBounds(),player.shape.getPosition(),player.SPEED);
+        manager.update(window,deltaTime,grid,player.shape.getGlobalBounds(),player.shape.getPosition(),player.SPEED,player.getStunZone().getGlobalBounds(),player.getStun());
         window.display();
     }
     return 0;

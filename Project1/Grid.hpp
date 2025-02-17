@@ -24,6 +24,7 @@ public:
     void loadFromFile(const string& filename);
     void draw(RenderWindow& window);
     Cell& getCell(int x, int y);
+    bool isWalkable(sf::Vector2f pos);
 private:
     vector<vector<Cell>> cells;
 };
