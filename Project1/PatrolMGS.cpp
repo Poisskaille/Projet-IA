@@ -1,6 +1,6 @@
 #include "PatrolMGS.hpp"
 
-PatrolMGS::PatrolMGS(float x, float y, Vector2f p1, Vector2f p2, Vector2f p3)
+PatrolMGS::PatrolMGS(float x, float y, Vector2i p1, Vector2i p2, Vector2i p3)
 	: Enemy(x, y), m_position(x, y), m_p1(p1), m_p2(p2), m_p3(p3), m_currentWaypoint(0), m_state(State::NORMAL)
 {
 	shape.setSize({ 20, 20 });
@@ -47,25 +47,36 @@ void PatrolMGS::draw(RenderWindow& window)
 }
 
 void PatrolMGS::Patrol(float deltaTime, Grid& grid) {
-	Vector2f waypoints[3] = { m_p1, m_p2, m_p3 };
-	Vector2f target = waypoints[m_currentWaypoint];
-	Vector2f direction = target - m_position;
-	float distance = sqrt(direction.x * direction.x + direction.y * direction.y);
+    Vector2i waypoints[3] = { m_p1, m_p2, m_p3 };
+    Vector2i target = waypoints[m_currentWaypoint];
 
-	if (distance < 5.0f) {
-		m_canMove = false;
-		if (m_time >= 2) { m_currentWaypoint = (m_currentWaypoint + 1) % 3; m_canMove = true; m_time = 0; }		
-	}
-	else {
+    Vector2f targetPos(target.x * CELL_SIZE, target.y * CELL_SIZE);
+
+    Vector2f direction = targetPos - m_position;
+    float distance = sqrt(direction.x * direction.x + direction.y * direction.y);
+
+    if (distance < 5.f) {
+        m_canMove = false;
+        if (m_time >= 2) {
+            m_currentWaypoint = (m_currentWaypoint + 1) % 3;
+            m_canMove = true;
+            m_time = 0;
+        }
+    }
+    else {
         m_canMove = true;
-		direction /= distance;
+        direction /= distance;
         m_direction = direction;
-		m_position += direction * SPEED * deltaTime;
-	}
 
-    if (m_canMove) { shape.setPosition(m_position); m_sounddetection.setPosition(shape.getPosition()); }
-	
+        m_position += direction * SPEED * deltaTime;
+    }
+
+    if (m_canMove) {
+        shape.setPosition(m_position);
+        m_sounddetection.setPosition(shape.getPosition());
+    }
 }
+
 
 void PatrolMGS::Spotted(float deltaTime) {
     Vector2f direction = m_playerPos - m_position;
