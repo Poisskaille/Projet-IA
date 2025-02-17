@@ -50,12 +50,26 @@ void PatrolMGS::Patrol(float deltaTime, Grid& grid) {
     Vector2i waypoints[3] = { m_p1, m_p2, m_p3 };
     Vector2i target = waypoints[m_currentWaypoint];
 
-    Vector2f targetPos(target.x * CELL_SIZE, target.y * CELL_SIZE);
+    if (m_path.empty() || m_path.back() != target) {
+        m_path = pathfinding.findPath(grid, Vector2i(m_position.x / CELL_SIZE, m_position.y / CELL_SIZE), target);
+        m_pathIndex = 0;
+    }
 
-    Vector2f direction = targetPos - m_position;
-    float distance = sqrt(direction.x * direction.x + direction.y * direction.y);
+    if (!m_path.empty() && m_pathIndex < m_path.size()) {
+        Vector2f nextPos(m_path[m_pathIndex].x * CELL_SIZE, m_path[m_pathIndex].y * CELL_SIZE);
+        Vector2f direction = nextPos - m_position;
+        float distance = sqrt(direction.x * direction.x + direction.y * direction.y);
 
-    if (distance < 5.f) {
+        if (distance < 5.f) {
+            m_pathIndex++;
+        }
+        else {
+            direction /= distance;
+            m_direction = direction;
+            m_position += direction * SPEED * deltaTime;
+        }
+    }
+    else {
         m_canMove = false;
         if (m_time >= 2) {
             m_currentWaypoint = (m_currentWaypoint + 1) % 3;
@@ -63,19 +77,13 @@ void PatrolMGS::Patrol(float deltaTime, Grid& grid) {
             m_time = 0;
         }
     }
-    else {
-        m_canMove = true;
-        direction /= distance;
-        m_direction = direction;
-
-        m_position += direction * SPEED * deltaTime;
-    }
 
     if (m_canMove) {
         shape.setPosition(m_position);
         m_sounddetection.setPosition(shape.getPosition());
     }
 }
+
 
 
 void PatrolMGS::Spotted(float deltaTime) {
