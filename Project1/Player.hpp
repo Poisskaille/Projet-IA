@@ -2,6 +2,8 @@
 #define PLAYER_HPP
 
 #include "Entity.hpp"
+#include <SFML/Graphics.hpp>
+#include <SFML/System.hpp>
 
 class Player : public Entity {
 public:

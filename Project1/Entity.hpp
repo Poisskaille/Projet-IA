@@ -1,12 +1,14 @@
 #ifndef ENTITY_HPP
 #define ENTITY_HPP
 
-#include <SFML/Graphics.hpp>
 #include <iostream>
-#include "Grid.hpp"
+#include <SFML/Graphics.hpp>
+#include <SFML/System.hpp>
 
 using namespace std;
 using namespace sf;
+
+class Grid;
 
 class Entity {
 public:

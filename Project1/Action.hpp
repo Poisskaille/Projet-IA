@@ -1,6 +1,8 @@
 #ifndef ACTION_HPP
 #define ACTION_HPP
 
+#include <SFML/Graphics.hpp>
+#include <SFML/System.hpp>
 #include <string>
 using namespace std;
 

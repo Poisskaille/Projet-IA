@@ -2,6 +2,10 @@
 #define ENEMY_HPP
 
 #include "Entity.hpp"
+#include <SFML/Graphics.hpp>
+#include <SFML/System.hpp>
+
+class Grid;
 
 class Enemy : public Entity {
 public:

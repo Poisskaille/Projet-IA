@@ -3,7 +3,10 @@
 
 #include <vector>
 #include <SFML/Graphics.hpp>
+#include <SFML/System.hpp>
 #include <string>
+
+class EnemyManager;
 
 using namespace std;
 using namespace sf;
@@ -23,9 +26,13 @@ public:
     Grid();
     void loadFromFile(const string& filename);
     void draw(RenderWindow& window);
+    void spawnEnemies(EnemyManager& manager, const string& enemyFile);
+    void switchMap(EnemyManager& manager, const string& newMap, const string& newEnemyMap);
     Cell& getCell(int x, int y);
 private:
     vector<vector<Cell>> cells;
+    string currentMap;
+    string currentEnemyMap;
 };
 
 #endif      

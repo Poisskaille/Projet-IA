@@ -3,13 +3,14 @@
 #include "EnemyManager.hpp"
 #include "Enemy.hpp"
 #include "Grid.hpp"
+#include "Player.hpp"
 #include <vector>
-#include "BTNode.hpp"
 
 EnemyManager manager;
 
 const int WINDOW_WIDTH = 800;
 const int WINDOW_HEIGHT = 600;
+bool isMap1 = true;
 
 int main() {
     RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Jeu SFML - IA Ennemis");
@@ -19,6 +20,7 @@ int main() {
     //vector<Enemy> enemies = { Enemy(100, 100), Enemy(700, 100) };
     Grid grid;
     grid.loadFromFile("map.txt");
+    grid.spawnEnemies(manager, "map2.txt");
 
     manager.createMGSPatrol(100, 300, {100,100}, {500,200},{300,300});
     manager.createMGSPatrol(600,120, {300,300}, {600,200}, {100,100});
@@ -37,6 +39,14 @@ int main() {
 
         if (Keyboard::isKeyPressed(Keyboard::W)) {
             manager.setMenacedState();
+        }
+
+        if (Keyboard::isKeyPressed(Keyboard::M)) {
+            grid.switchMap(manager, "map.txt", "map2.txt");
+        }
+
+        if (Keyboard::isKeyPressed(Keyboard::L)) {
+            grid.switchMap(manager, "map2.txt", "map.txt");
         }
 
         player.update(deltaTime, grid);

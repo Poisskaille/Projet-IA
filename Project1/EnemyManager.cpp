@@ -1,4 +1,5 @@
 #include "EnemyManager.hpp"
+#include "Grid.hpp"
 
 void EnemyManager::update(RenderWindow& window, float deltaTime, Grid& grid,const FloatRect& playerBounds, const Vector2f playerPos,const float& playerSpeed)
 {
@@ -10,11 +11,17 @@ void EnemyManager::update(RenderWindow& window, float deltaTime, Grid& grid,cons
 		enemy->update(deltaTime,grid);
 		enemy->rayCasting(grid, window);
 	}
+	for (auto& enemy : m_shooter_enemies) {
+		enemy->update(deltaTime, grid);
+	}
 }
 
 void EnemyManager::draw(RenderWindow& window)
 {	
 	for (auto& enemy : m_mgs_enemies) {
+		enemy->draw(window);
+	}
+	for (auto& enemy : m_shooter_enemies) {
 		enemy->draw(window);
 	}
 }
@@ -24,11 +31,20 @@ void EnemyManager::createMGSPatrol(float posX, float posY, Vector2f p1, Vector2f
 	m_mgs_enemies.push_back(make_unique<PatrolMGS>(posX, posY,p1,p2,p3));
 }
 
+void EnemyManager::createShooterEnemy(float posX, float posY, Grid& grid) {
+	m_shooter_enemies.push_back(make_unique<ShooterEnemy>(posX, posY, grid));
+}
+
 void EnemyManager::setMenacedState()
 {
 	for (auto& enemy : m_mgs_enemies) {
 		enemy->setMenacedState();
 	}
+}
+
+void EnemyManager::deleteAllEnemy() {
+	m_mgs_enemies.clear();
+	m_shooter_enemies.clear();
 }
 
 bool EnemyManager::checkCollision(const FloatRect& playerBounds)
@@ -59,9 +75,8 @@ bool EnemyManager::checkSpotted(const float& playerSpeed, const FloatRect& playe
 			enemy->setMove(false);
 			enemy->setSpottedState(playerPos);
 			return true;
-		}
+		}	
 	}
 	return false;
 }
 
-void EnemyManager::deleteAllEnemy(){ m_mgs_enemies.clear(); }

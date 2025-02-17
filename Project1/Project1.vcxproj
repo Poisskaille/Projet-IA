@@ -145,8 +145,13 @@
     <ClCompile Include="GOAPPlanner.cpp" />
     <ClCompile Include="Grid.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MoveToReloadAction.cpp" />
     <ClCompile Include="PatrolMGS.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="ReloadAction.cpp" />
+    <ClCompile Include="ReloadAction.hpp" />
+    <ClCompile Include="ShootAction.cpp" />
+    <ClCompile Include="ShooterEnemy.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Action.hpp" />
@@ -156,8 +161,11 @@
     <ClInclude Include="Goal.hpp" />
     <ClInclude Include="GOAPPlanner.hpp" />
     <ClInclude Include="Grid.hpp" />
+    <ClInclude Include="MoveToReloadAction.hpp" />
     <ClInclude Include="PatrolMGS.hpp" />
     <ClInclude Include="Player.hpp" />
+    <ClInclude Include="ShootAction.hpp" />
+    <ClInclude Include="ShooterEnemy.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

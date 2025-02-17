@@ -1,6 +1,7 @@
 // player.cpp
 #include "Player.hpp"
 #include <SFML/Window/Keyboard.hpp>
+#include "Grid.hpp"
 
 Player::Player(float x, float y) : Entity(x, y, Color::Blue) {}
 
