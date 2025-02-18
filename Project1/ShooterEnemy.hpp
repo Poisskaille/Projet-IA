@@ -11,7 +11,7 @@ class Grid;
 class ShooterEnemy : public Enemy {
 public:
     ShooterEnemy(float x, float y, Grid& grid);
-    void update(float deltaTime, Grid& grid) override;
+    void update(float deltaTime, Grid& grid, const Vector2f& playerPos) override;
     void draw(RenderWindow& window);
 
 private:

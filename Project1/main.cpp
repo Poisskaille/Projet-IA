@@ -49,14 +49,14 @@ int main() {
         player.update(deltaTime, grid,player.shape.getPosition());
 
         if (Keyboard::isKeyPressed(Keyboard::M)) {
-            grid.switchMap(manager, "map.txt", "map2.txt");
+            grid.switchMap(window, manager, "map.txt", "map2.txt");
         }
 
         if (Keyboard::isKeyPressed(Keyboard::L)) {
-            grid.switchMap(manager, "map2.txt", "map.txt");
+            grid.switchMap(window, manager, "map2.txt", "map.txt");
         }
 
-        player.update(deltaTime, grid);
+        player.update(deltaTime, grid, player.shape.getPosition());
 
         window.clear();
         grid.draw(window);

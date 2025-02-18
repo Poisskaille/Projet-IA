@@ -56,13 +56,14 @@ void Grid::spawnEnemies(EnemyManager& manager, const string& enemyFile) {
     file.close();
 }
 
-void Grid::switchMap(EnemyManager& manager, const string& newMap, const string& newEnemyMap) {
+void Grid::switchMap(RenderWindow& window, EnemyManager& manager, const string& newMap, const string& newEnemyMap) {
     cout << "Changement de carte vers : " << newMap << " et " << newEnemyMap << endl;
 
     loadFromFile(newMap);
     currentMap = newMap;
 
     manager.deleteAllEnemy();
+    window.clear();
 
     spawnEnemies(manager, newEnemyMap);
     currentEnemyMap = newEnemyMap;

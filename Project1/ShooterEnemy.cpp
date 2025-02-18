@@ -17,7 +17,7 @@ ShooterEnemy::ShooterEnemy(float x, float y, Grid& grid) : Enemy(x, y), m_grid(g
     m_planner.addGoal(goal_Patrol);
 }
 
-void ShooterEnemy::update(float deltaTime, Grid& grid) {
+void ShooterEnemy::update(float deltaTime, Grid& grid, const Vector2f& playerPos) {
     Action* action = m_planner.getBestAction();
     if (action) {
         action->execute();

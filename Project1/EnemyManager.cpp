@@ -20,7 +20,7 @@ void EnemyManager::update(RenderWindow& window, float deltaTime, Grid& grid,cons
 		}
 
 		for (auto& enemy : m_shooter_enemies) {
-		enemy->update(deltaTime, grid);
+		enemy->update(deltaTime, grid, playerPos);
 		}
 
 	}

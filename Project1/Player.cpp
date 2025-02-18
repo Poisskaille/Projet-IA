@@ -16,7 +16,7 @@ void Player::update(float deltaTime, Grid& grid,const Vector2f& playerPos) {
     if (Keyboard::isKeyPressed(Keyboard::S)) movement.y += SPEED * deltaTime;
     if (Keyboard::isKeyPressed(Keyboard::Q)) movement.x -= SPEED * deltaTime;
     if (Keyboard::isKeyPressed(Keyboard::D)) movement.x += SPEED * deltaTime;
-    if (Keyboard::isKeyPressed(Keyboard::LShift)) { SPEED = 400; }
+    if (Keyboard::isKeyPressed(Keyboard::LShift)) { SPEED = 400.f; }
     else { SPEED = 200.f; }
     if (Mouse::isButtonPressed(Mouse::Left) && !isStuning) { isStuning = true; delay.restart(); }
 
