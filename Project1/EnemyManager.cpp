@@ -1,5 +1,6 @@
 #include "EnemyManager.hpp"
 #include "Grid.hpp"
+#include "Player.hpp"
 
 
 void EnemyManager::update(RenderWindow& window, float deltaTime, Grid& grid,const FloatRect& playerBounds,
@@ -16,6 +17,9 @@ void EnemyManager::update(RenderWindow& window, float deltaTime, Grid& grid,cons
 	for (auto& enemy : m_mgs_enemies) {
 		enemy->update(deltaTime,grid,playerPos);
 		enemy->rayCasting(grid, window);
+	}
+	for (auto& enemy : m_shooter_enemies) {
+		enemy->update(deltaTime, grid, playerPos);
 	}
 
 	if (checkFOV(playerBounds)) {

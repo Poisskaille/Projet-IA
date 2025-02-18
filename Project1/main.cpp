@@ -20,8 +20,6 @@ int main() {
     //vector<Enemy> enemies = { Enemy(100, 100), Enemy(700, 100) };
     Grid grid;
     grid.loadFromFile("map.txt");
-    grid.spawnEnemies(manager, "map2.txt");
-
     manager.createMGSPatrol(100, 300, { 2, 2 }, { 3, 15 }, { 14, 9 });
     manager.createMGSPatrol(600, 120, { 18, 3 }, { 10, 22 }, { 30, 6 });
 
@@ -47,12 +45,23 @@ int main() {
         }
 
         if (Keyboard::isKeyPressed(Keyboard::M)) {
-            grid.switchMap(window, manager, "map.txt", "map2.txt");
+            grid.switchMap(window, manager, "map2.txt", "map2.txt", player);
+            window.clear();
+            grid.draw(window);
+            window.display();
+            cout << "MAP2 affichée après switch" << endl;
+            sleep(milliseconds(100));
         }
 
         if (Keyboard::isKeyPressed(Keyboard::L)) {
-            grid.switchMap(window, manager, "map2.txt", "map.txt");
+            grid.switchMap(window, manager, "map2.txt", "map.txt", player);
+            window.clear();
+            grid.draw(window);
+            window.display();
+            cout << "MAP1 affichée après switch" << endl;
+            sleep(milliseconds(100));
         }
+
 
         player.update(deltaTime, grid, player.shape.getPosition());
 

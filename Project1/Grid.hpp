@@ -6,6 +6,7 @@
 #include <SFML/System.hpp>
 #include <string>
 
+class Player;
 class EnemyManager;
 
 using namespace std;
@@ -27,7 +28,7 @@ public:
     void loadFromFile(const string& filename);
     void draw(RenderWindow& window);
     void spawnEnemies(EnemyManager& manager, const string& enemyFile);
-    void switchMap(RenderWindow& window, EnemyManager& manager, const string& newMap, const string& newEnemyMap);
+    void switchMap(RenderWindow& window, EnemyManager& manager, const string& newMap, const string& newEnemyMap, Player& player);
     Cell& getCell(int x, int y);
     bool isWalkable(Vector2f pos);
 private:
