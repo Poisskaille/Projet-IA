@@ -7,6 +7,7 @@
 #include <SFML/System.hpp>
 #include "SFML/Audio.hpp"
 
+class Player;
 class Grid;
 
 class EnemyManager {
