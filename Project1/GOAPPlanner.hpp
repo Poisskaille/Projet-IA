@@ -4,6 +4,9 @@
 #include "Action.hpp"
 #include "Goal.hpp"
 #include <vector>
+#include <SFML/Graphics.hpp>
+#include <SFML/System.hpp>
+
 using namespace std;
 
 class GOAPPlanner {

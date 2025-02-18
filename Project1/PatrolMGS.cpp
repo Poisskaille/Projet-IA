@@ -1,4 +1,5 @@
 #include "PatrolMGS.hpp"
+#include "Grid.hpp"
 
 PatrolMGS::PatrolMGS(float x, float y, Vector2i p1, Vector2i p2, Vector2i p3)
 	: Enemy(x, y), m_position(x, y), m_p1(p1), m_p2(p2), m_p3(p3), m_currentWaypoint(0), m_state(State::NORMAL)

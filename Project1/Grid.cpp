@@ -1,4 +1,6 @@
+
 #include "Grid.hpp"
+#include "EnemyManager.hpp"
 #include <fstream>
 #include <iostream>
 
@@ -27,11 +29,43 @@ void Grid::loadFromFile(const string& filename) {
         if (!getline(file, line)) break;
         for (int x = 0; x < GRID_WIDTH && x < line.size(); ++x) {
             cells[y][x].walkable = (line[x] == '0');
-            if (!cells[y][x].walkable) {
+            if (!cells[y][x].walkable) {    
                 cells[y][x].shape.setFillColor(Color::White);
             }
         }
     }
+}
+
+void Grid::spawnEnemies(EnemyManager& manager, const string& enemyFile) {
+    ifstream file("map.txt");
+    if (!file) {
+        cerr << "Erreur : Impossible d'ouvrir map.txt" << endl;
+        return;
+    }
+
+    int y = 0;
+    string line;
+    while (getline(file, line)) {
+        for (int x = 0; x < line.size(); ++x) {
+            if (line[x] == '2') {
+                manager.createShooterEnemy(x * CELL_SIZE, y * CELL_SIZE, *this);
+            }
+        }
+        y++;
+    }
+    file.close();
+}
+
+void Grid::switchMap(EnemyManager& manager, const string& newMap, const string& newEnemyMap) {
+    cout << "Changement de carte vers : " << newMap << " et " << newEnemyMap << endl;
+
+    loadFromFile(newMap);
+    currentMap = newMap;
+
+    manager.deleteAllEnemy();
+
+    spawnEnemies(manager, newEnemyMap);
+    currentEnemyMap = newEnemyMap;
 }
 
 void Grid::draw(RenderWindow& window) {

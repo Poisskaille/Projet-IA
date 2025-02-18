@@ -2,6 +2,9 @@
 #define GOAL_HPP
 
 #include <string>
+#include <SFML/Graphics.hpp>
+#include <SFML/System.hpp>
+
 using namespace std;
 
 class Goal {
@@ -15,4 +18,7 @@ private:
     int m_priority;
 };
 
+extern Goal goal_AttackPlayer;
+extern Goal goal_Reload;
+extern Goal goal_Patrol;
 #endif

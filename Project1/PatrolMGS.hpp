@@ -3,7 +3,11 @@
 
 #include "Enemy.hpp"
 #include "Pathfinding.hpp"
-
+#include <SFML/Graphics.hpp>
+#include <SFML/System.hpp>
+using namespace std;
+using namespace sf;
+class Grid;
 
 
 class PatrolMGS : public Enemy {
