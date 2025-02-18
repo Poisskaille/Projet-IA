@@ -1,11 +1,11 @@
 #include <SFML/Graphics.hpp>
-#include <iostream>
 #include "EnemyManager.hpp"
 #include "Enemy.hpp"
 #include "Grid.hpp"
 #include "Player.hpp"
-#include <vector>
 
+
+FootStepManager stepmanager;
 EnemyManager manager;
 
 const int WINDOW_WIDTH = 800;
@@ -46,8 +46,6 @@ int main() {
             manager.setNormalState();
         }
 
-        player.update(deltaTime, grid,player.shape.getPosition());
-
         if (Keyboard::isKeyPressed(Keyboard::M)) {
             grid.switchMap(window, manager, "map.txt", "map2.txt");
         }
@@ -60,6 +58,9 @@ int main() {
 
         window.clear();
         grid.draw(window);
+        stepmanager.draw(window);
+        stepmanager.update();
+
         window.draw(player.getStunZone());
         window.draw(player.shape);
         manager.update(window,deltaTime,grid,player.shape.getGlobalBounds(),player.shape.getPosition(),player.SPEED,player.getStunZone().getGlobalBounds(),player.getStun());

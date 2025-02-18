@@ -1,7 +1,8 @@
 #include "EnemyManager.hpp"
 #include "Grid.hpp"
 
-void EnemyManager::update(RenderWindow& window, float deltaTime, Grid& grid,const FloatRect& playerBounds, 
+
+void EnemyManager::update(RenderWindow& window, float deltaTime, Grid& grid,const FloatRect& playerBounds,
 	const Vector2f playerPos,const float& playerSpeed, const FloatRect& stunzone, bool stun)
 {
 
@@ -9,9 +10,9 @@ void EnemyManager::update(RenderWindow& window, float deltaTime, Grid& grid,cons
 		InitializeSound();
 	}
 	draw(window);
-	if (checkCollision(playerBounds)) { cout << "Collision" << endl; }
-	if (checkSpotted(playerSpeed, playerBounds,playerPos)) { cout << "Player entendu / appercu" << endl; }
-	if (checkStun(stunzone, stun)) { cout << "Ennemi stun" << endl; }
+	if (checkCollision(playerBounds)) {}
+	if (checkSpotted(playerSpeed, playerBounds,playerPos)) {}
+	if (checkStun(stunzone, stun)) {}
 	for (auto& enemy : m_mgs_enemies) {
 		enemy->update(deltaTime,grid,playerPos);
 		enemy->rayCasting(grid, window);
@@ -19,15 +20,11 @@ void EnemyManager::update(RenderWindow& window, float deltaTime, Grid& grid,cons
 
 	if (checkFOV(playerBounds)) {
 		for (auto& enemy : m_mgs_enemies) {
-			if (enemy->getState() != 2)
+			if (enemy->getState() != 2){ 
 				alert.play();
-			enemy->setAlerteState();
+				enemy->setAlerteState();
+			}			
 		}
-
-		for (auto& enemy : m_shooter_enemies) {
-		enemy->update(deltaTime, grid, playerPos);
-		}
-
 	}
 }
 
@@ -94,8 +91,8 @@ bool EnemyManager::checkFOV(const FloatRect& playerBounds)
 bool EnemyManager::checkSpotted(const float& playerSpeed, const FloatRect& playerBounds, const Vector2f& playerPos)
 {
 	for (auto& enemy : m_mgs_enemies) {
-		if (enemy->getSoundDetection().getGlobalBounds().intersects(playerBounds) && playerSpeed > 200 && enemy->getState() != 1 && enemy->getState() != 2
-			|| enemy->getSecondCasting().getGlobalBounds().intersects(playerBounds) && playerSpeed > 200 && enemy->getState()!= 1 && enemy->getState() != 2) {
+		if (playerSpeed > 200 && enemy->getState() != 1 && enemy->getState() != 2 && (enemy->getSoundDetection().getGlobalBounds().intersects(playerBounds) ||
+			enemy->getSecondCasting().getGlobalBounds().intersects(playerBounds))) {
 			enemy->setTime(0.f);
 			enemy->setMove(false);
 			enemy->setSpottedState(playerPos);
@@ -112,6 +109,20 @@ void EnemyManager::InitializeSound()
 	m_soundInit = true;
 }
 
+vector<ConvexShape> EnemyManager::getShape() const
+{
+	vector<ConvexShape> shapes;
+	for (const auto& enemy : m_mgs_enemies) {
+		shapes.push_back(enemy->getFirstCasting());
+	}
+
+	return shapes;
+}
+
+const vector<unique_ptr<PatrolMGS>>& EnemyManager::getEnemies() const
+{
+	return m_mgs_enemies;
+}
 
 bool EnemyManager::checkStun(const FloatRect& stunzone, bool stun)
 {

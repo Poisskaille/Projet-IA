@@ -30,7 +30,11 @@ public:
 
 	void InitializeSound();
 
+	vector<ConvexShape> getShape()const;
+	const vector<unique_ptr<PatrolMGS>>& getEnemies() const;
+
 private:
+
 	vector<unique_ptr<PatrolMGS>> m_mgs_enemies;
 	vector<unique_ptr<ShooterEnemy>> m_shooter_enemies;
 

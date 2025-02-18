@@ -4,6 +4,9 @@
 #include "Entity.hpp"
 #include <SFML/Graphics.hpp>
 #include <SFML/System.hpp>
+#include "FootStepsManager.hpp"
+
+extern FootStepManager stepmanager;
 
 class Player : public Entity {
 public:
@@ -19,6 +22,8 @@ private:
     bool isStuning = false;
 
     Clock delay;
+    Clock stepDelay;
+    float m_float_stepDelay = 1.f;
 };
 
 #endif // PLAYER_HPP

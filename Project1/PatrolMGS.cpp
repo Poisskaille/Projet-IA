@@ -34,7 +34,7 @@ void PatrolMGS::update(float deltaTime, Grid& grid, const Vector2f& playerPos)
     case State::ALERTE:
             chase(playerPos, deltaTime, grid);
             cout << m_delay.getElapsedTime().asSeconds() << endl;
-            if (m_delay.getElapsedTime().asSeconds() > 2) { setMenacedState(); }
+            if (m_delay.getElapsedTime().asSeconds() > 5) { setMenacedState(); }
             break;
     case State::STUNNED:
         if (m_delay.getElapsedTime().asSeconds() > 5) { setMenacedState(); }
@@ -122,11 +122,14 @@ void PatrolMGS::Spotted(float deltaTime, Grid& grid) {
 
 
 void PatrolMGS::chase(const Vector2f& playerPos, float deltaTime, Grid& grid) {
-    Vector2i playerGridPos(playerPos.x / CELL_SIZE, playerPos.y / CELL_SIZE);
 
-    if (m_path.empty() || m_path.back() != playerGridPos) {
-        m_path = pathfinding.findPath(grid, Vector2i(m_position.x / CELL_SIZE, m_position.y / CELL_SIZE), playerGridPos);
+    Vector2i playerGridPos(playerPos.x / CELL_SIZE, playerPos.y / CELL_SIZE);
+    Vector2i enemyGridPos(m_position.x / CELL_SIZE, m_position.y / CELL_SIZE);
+
+    if ((m_path.empty() || m_path.back() != playerGridPos) && chaseDelay.getElapsedTime().asSeconds() > 2.f) {
+        m_path = pathfinding.findPath(grid, enemyGridPos, playerGridPos);
         m_pathIndex = 0;
+        chaseDelay.restart();
     }
 
     if (!m_path.empty() && m_pathIndex < m_path.size()) {
@@ -143,17 +146,19 @@ void PatrolMGS::chase(const Vector2f& playerPos, float deltaTime, Grid& grid) {
             m_position += direction * SPEED * deltaTime;
         }
     }
+
     shape.setPosition(m_position);
     m_sounddetection.setPosition(shape.getPosition());
 }
+
 
 void PatrolMGS::RandomChase(float deltaTime, Grid& grid) {
     if (!newRandomPos) {
         bool validPosition = false;
         while (!validPosition) {
-            randomx = rand() % 35;
+            randomx = rand() % 30;
             cout << "x : " << randomx << endl;
-            randomy = rand() % 25;
+            randomy = rand() % 20;
             cout << "y : " << randomy << endl;
             if (grid.getCell(randomx, randomy).walkable) {
                 validPosition = true;

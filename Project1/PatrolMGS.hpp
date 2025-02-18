@@ -71,5 +71,7 @@ private:
     int randomy = 0;
     State m_state;
 
+    Clock chaseDelay;
+
 };
 #endif

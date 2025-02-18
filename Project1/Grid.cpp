@@ -81,9 +81,9 @@ Cell& Grid::getCell(int x, int y) {
     return cells[y][x];
 }
 
-bool Grid::isWalkable(sf::Vector2f pos) {
-    int x = static_cast<int>(pos.x / CELL_SIZE);  // Conversion en index de cellule
-    int y = static_cast<int>(pos.y / CELL_SIZE);  // Conversion en index de cellule
+bool Grid::isWalkable(Vector2f pos) {
+    int x = static_cast<int>(pos.x / CELL_SIZE);
+    int y = static_cast<int>(pos.y / CELL_SIZE);
     if (x < 0 || x >= GRID_WIDTH || y < 0 || y >= GRID_HEIGHT)
         return false;
     return cells[y][x].walkable;
