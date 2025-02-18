@@ -10,7 +10,7 @@ EnemyManager manager;
 
 const int WINDOW_WIDTH = 800;
 const int WINDOW_HEIGHT = 600;
-
+//
 int main() {
     srand(time(NULL));
     RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Jeu SFML - IA Ennemis");
