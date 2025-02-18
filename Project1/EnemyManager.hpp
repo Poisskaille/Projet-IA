@@ -6,6 +6,7 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/System.hpp>
 
+class Player;
 class Grid;
 
 class EnemyManager {

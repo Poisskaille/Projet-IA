@@ -10,7 +10,6 @@ EnemyManager manager;
 
 const int WINDOW_WIDTH = 800;
 const int WINDOW_HEIGHT = 600;
-bool isMap1 = true;
 
 int main() {
     RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Jeu SFML - IA Ennemis");
@@ -20,8 +19,6 @@ int main() {
     //vector<Enemy> enemies = { Enemy(100, 100), Enemy(700, 100) };
     Grid grid;
     grid.loadFromFile("map.txt");
-    grid.spawnEnemies(manager, "map2.txt");
-
     manager.createMGSPatrol(100, 300, { 2, 2 }, { 3, 15 }, { 14, 9 });
     manager.createMGSPatrol(600, 120, { 18, 3 }, { 10, 22 }, { 30, 6 });
 
@@ -46,15 +43,24 @@ int main() {
             manager.setNormalState();
         }
 
-        player.update(deltaTime, grid,player.shape.getPosition());
-
         if (Keyboard::isKeyPressed(Keyboard::M)) {
-            grid.switchMap(window, manager, "map.txt", "map2.txt");
+            grid.switchMap(window, manager, "map2.txt", "map2.txt", player);
+            window.clear();
+            grid.draw(window);
+            window.display();
+            cout << "MAP2 affichée après switch" << endl;
+            sleep(milliseconds(100));
         }
 
         if (Keyboard::isKeyPressed(Keyboard::L)) {
-            grid.switchMap(window, manager, "map2.txt", "map.txt");
+            grid.switchMap(window, manager, "map2.txt", "map.txt", player);
+            window.clear();
+            grid.draw(window);
+            window.display();
+            cout << "MAP1 affichée après switch" << endl;
+            sleep(milliseconds(100));
         }
+
 
         player.update(deltaTime, grid, player.shape.getPosition());
 
