@@ -4,6 +4,10 @@
 void EnemyManager::update(RenderWindow& window, float deltaTime, Grid& grid,const FloatRect& playerBounds, 
 	const Vector2f playerPos,const float& playerSpeed, const FloatRect& stunzone, bool stun)
 {
+
+	if (!m_soundInit) {
+		InitializeSound();
+	}
 	draw(window);
 	if (checkCollision(playerBounds)) { cout << "Collision" << endl; }
 	if (checkSpotted(playerSpeed, playerBounds,playerPos)) { cout << "Player entendu / appercu" << endl; }
@@ -15,7 +19,8 @@ void EnemyManager::update(RenderWindow& window, float deltaTime, Grid& grid,cons
 
 	if (checkFOV(playerBounds)) {
 		for (auto& enemy : m_mgs_enemies) {
-			if(enemy->getState() != 2)
+			if (enemy->getState() != 2)
+				alert.play();
 			enemy->setAlerteState();
 		}
 
@@ -98,6 +103,13 @@ bool EnemyManager::checkSpotted(const float& playerSpeed, const FloatRect& playe
 		}	
 	}
 	return false;
+}
+
+void EnemyManager::InitializeSound()
+{
+	alertplay.loadFromFile("../assets/MGSAlert.mp3");
+	alert.setBuffer(alertplay);
+	m_soundInit = true;
 }
 
 

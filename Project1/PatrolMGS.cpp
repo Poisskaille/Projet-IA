@@ -13,6 +13,7 @@ PatrolMGS::PatrolMGS(float x, float y, Vector2i p1, Vector2i p2, Vector2i p3)
     m_sounddetection.setPosition(shape.getPosition());
     m_sounddetection.setFillColor(Color(167, 255, 145, 30));
     m_sounddetection.setOrigin(150, 150);
+
 }
 
 PatrolMGS::~PatrolMGS(){}
@@ -28,7 +29,7 @@ void PatrolMGS::update(float deltaTime, Grid& grid, const Vector2f& playerPos)
         break;
     case State::MENACE:
         RandomChase(deltaTime, grid);
-        if (m_delay.getElapsedTime().asSeconds() > 10) { setNormalState(); }
+        if (m_delay.getElapsedTime().asSeconds() > 10) { setNormalState(); newRandomPos = false; }
         break;
     case State::ALERTE:
             chase(playerPos, deltaTime, grid);
@@ -86,8 +87,6 @@ void PatrolMGS::Patrol(float deltaTime, Grid& grid) {
         m_sounddetection.setPosition(shape.getPosition());
     }
 }
-
-
 
 void PatrolMGS::Spotted(float deltaTime, Grid& grid) {
     Vector2i playerGridPos(m_playerPos.x / CELL_SIZE, m_playerPos.y / CELL_SIZE);
@@ -197,7 +196,7 @@ void PatrolMGS::setMenacedState()
     m_delay.restart();
     m_state = State::MENACE;
     m_time = 0.f;
-	SPEED = 110.f;
+	SPEED = 140.f;
 	shape.setFillColor(Color::Yellow);
 }
 
