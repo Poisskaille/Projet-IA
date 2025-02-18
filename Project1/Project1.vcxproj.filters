@@ -13,6 +13,18 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Fichiers d%27en-tête\Manager">
+      <UniqueIdentifier>{5f6ee2ad-493b-4515-8675-ce02436e3a5d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\FSM">
+      <UniqueIdentifier>{5f5561ea-370e-4392-872a-87b2b2bfc94c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\GOAP">
+      <UniqueIdentifier>{bbe7155e-4836-4b5b-a4d6-6c1e5688f7a7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Manager">
+      <UniqueIdentifier>{7af65490-e9fa-41bf-a1de-a3a432b01914}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -33,8 +45,44 @@
     <ClCompile Include="PatrolMGS.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="EnemyManager.cpp">
+    <ClCompile Include="Action.cpp">
       <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Goal.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="GOAPPlanner.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Node.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Pathfinding.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="MoveToReloadAction.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="ReloadAction.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="ShootAction.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="ShooterEnemy.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="FootStep.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="ReloadAction.hpp">
+      <Filter>Fichiers d%27en-tête\GOAP</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyManager.cpp">
+      <Filter>Fichiers sources\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="FootStepsManager.cpp">
+      <Filter>Fichiers sources\Manager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -50,11 +98,41 @@
     <ClInclude Include="Grid.hpp">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="PatrolMGS.hpp">
+    <ClInclude Include="Action.hpp">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="Node.hpp">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="Pathfinding.hpp">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="FootStep.hpp">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
     <ClInclude Include="EnemyManager.hpp">
-      <Filter>Fichiers d%27en-tête</Filter>
+      <Filter>Fichiers d%27en-tête\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="FootStepsManager.hpp">
+      <Filter>Fichiers d%27en-tête\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="PatrolMGS.hpp">
+      <Filter>Fichiers d%27en-tête\FSM</Filter>
+    </ClInclude>
+    <ClInclude Include="Goal.hpp">
+      <Filter>Fichiers d%27en-tête\GOAP</Filter>
+    </ClInclude>
+    <ClInclude Include="GOAPPlanner.hpp">
+      <Filter>Fichiers d%27en-tête\GOAP</Filter>
+    </ClInclude>
+    <ClInclude Include="MoveToReloadAction.hpp">
+      <Filter>Fichiers d%27en-tête\GOAP</Filter>
+    </ClInclude>
+    <ClInclude Include="ShooterEnemy.hpp">
+      <Filter>Fichiers d%27en-tête\GOAP</Filter>
+    </ClInclude>
+    <ClInclude Include="ShootAction.hpp">
+      <Filter>Fichiers d%27en-tête\GOAP</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

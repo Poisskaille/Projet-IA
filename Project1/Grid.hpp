@@ -30,7 +30,7 @@ public:
     void spawnEnemies(EnemyManager& manager, const string& enemyFile);
     void switchMap(RenderWindow& window, EnemyManager& manager, const string& newMap, const string& newEnemyMap, Player& player);
     Cell& getCell(int x, int y);
-    bool isWalkable(sf::Vector2f pos);
+    bool isWalkable(Vector2f pos);
 private:
     vector<vector<Cell>> cells;
     string currentMap;
