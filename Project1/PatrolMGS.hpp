@@ -10,8 +10,6 @@ using namespace sf;
 class Grid;
 #include <cstdlib>
 
-
-
 class PatrolMGS : public Enemy {
 public:
 
@@ -71,7 +69,6 @@ private:
 
     int randomx = 0;
     int randomy = 0;
-
     State m_state;
 
 };
