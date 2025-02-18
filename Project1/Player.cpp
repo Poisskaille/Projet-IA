@@ -7,6 +7,7 @@ Player::Player(float x, float y) : Entity(x, y, Color::Blue) {
     m_stunZone.setOrigin(20,20);
     m_stunZone.setPosition(shape.getPosition());
     m_stunZone.setFillColor(Color::Transparent);
+    shape.setFillColor(Color::Cyan);
 }
 
 void Player::update(float deltaTime, Grid& grid,const Vector2f& playerPos) {
@@ -15,8 +16,8 @@ void Player::update(float deltaTime, Grid& grid,const Vector2f& playerPos) {
     if (Keyboard::isKeyPressed(Keyboard::S)) movement.y += SPEED * deltaTime;
     if (Keyboard::isKeyPressed(Keyboard::Q)) movement.x -= SPEED * deltaTime;
     if (Keyboard::isKeyPressed(Keyboard::D)) movement.x += SPEED * deltaTime;
-    if (Keyboard::isKeyPressed(Keyboard::LShift)) { SPEED = 400; }
-    else { SPEED = 200.f; }
+    if (Keyboard::isKeyPressed(Keyboard::LShift)) { SPEED = 250; }
+    else { SPEED = 125.f; }
     if (Mouse::isButtonPressed(Mouse::Left) && !isStuning) { isStuning = true; delay.restart(); }
 
     if (delay.getElapsedTime().asSeconds() > 0.5f) {

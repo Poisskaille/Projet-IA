@@ -12,10 +12,11 @@ const int WINDOW_WIDTH = 800;
 const int WINDOW_HEIGHT = 600;
 
 int main() {
+    srand(time(NULL));
     RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Jeu SFML - IA Ennemis");
     window.setFramerateLimit(60);
 
-    Player player(100, 400);
+    Player player(100, 500);
     //vector<Enemy> enemies = { Enemy(100, 100), Enemy(700, 100) };
     Grid grid;
     grid.loadFromFile("map.txt");
