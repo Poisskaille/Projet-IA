@@ -65,6 +65,7 @@ int main() {
         manager.update(window,deltaTime,grid,player.shape.getGlobalBounds(),player.shape.getPosition(),player.SPEED,player.getStunZone().getGlobalBounds(),player.getStun());
         window.display();
     }
+
     return 0;
 }
 
