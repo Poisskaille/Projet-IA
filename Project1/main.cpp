@@ -19,7 +19,7 @@ int main() {
     Player player(100, 500);
     //vector<Enemy> enemies = { Enemy(100, 100), Enemy(700, 100) };
     Grid grid;
-    grid.loadFromFile("map.txt");
+    grid.loadFromFile("map.txt",manager);
     manager.createMGSPatrol(100, 300, { 2, 2 }, { 3, 15 }, { 14, 9 });
     manager.createMGSPatrol(600, 120, { 18, 3 }, { 10, 22 }, { 30, 6 });
 
@@ -45,21 +45,12 @@ int main() {
         }
 
         if (Keyboard::isKeyPressed(Keyboard::M)) {
-            grid.switchMap(window, manager, "map2.txt", "map2.txt", player);
-            window.clear();
-            grid.draw(window);
-            window.display();
-            cout << "MAP2 affichée après switch" << endl;
-            sleep(milliseconds(100));
+            grid.loadFromFile("map2.txt", manager);
+            player.shape.setPosition(100, 100);
         }
 
         if (Keyboard::isKeyPressed(Keyboard::L)) {
-            grid.switchMap(window, manager, "map2.txt", "map.txt", player);
-            window.clear();
-            grid.draw(window);
-            window.display();
-            cout << "MAP1 affichée après switch" << endl;
-            sleep(milliseconds(100));
+            grid.loadFromFile("map.txt", manager);
         }
 
 
