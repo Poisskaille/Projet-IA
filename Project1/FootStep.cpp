@@ -7,13 +7,9 @@ Footstep::Footstep(Vector2f spawnPos): s_state(stepState::UNDISCOVERED)
 	m_shape.setFillColor(Color(237, 237, 237,100));
 }
 
-Footstep::~Footstep()
-{
-}
+Footstep::~Footstep(){}
 
 void Footstep::draw(RenderWindow& window){ window.draw(m_shape); }
-
-Footstep::stepState Footstep::getState()const { return s_state; }
 
 bool Footstep::shouldDestroy()
 {
@@ -25,6 +21,5 @@ bool Footstep::shouldDestroy()
 
 void Footstep::setState(stepState value){ s_state = value; }
 
-CircleShape Footstep::getShape() {
-	return m_shape;
-}
+CircleShape Footstep::getShape() { return m_shape; }
+Footstep::stepState Footstep::getState()const { return s_state; }

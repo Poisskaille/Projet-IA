@@ -23,7 +23,6 @@ int main() {
     manager.createMGSPatrol(100, 300, { 2, 2 }, { 3, 15 }, { 14, 9 });
     manager.createMGSPatrol(600, 120, { 18, 3 }, { 10, 22 }, { 30, 6 });
 
-
     Clock clock;
 
     while (window.isOpen()) {
