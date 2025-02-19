@@ -2,8 +2,6 @@
 #define PLAYER_HPP
 
 #include "Entity.hpp"
-#include <SFML/Graphics.hpp>
-#include <SFML/System.hpp>
 #include "FootStepsManager.hpp"
 
 extern FootStepManager stepmanager;

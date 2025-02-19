@@ -3,8 +3,6 @@
 
 #include "PatrolMGS.hpp"
 #include "ShooterEnemy.hpp"
-#include <SFML/Graphics.hpp>
-#include <SFML/System.hpp>
 #include "SFML/Audio.hpp"
 
 class Player;
