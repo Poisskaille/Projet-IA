@@ -17,13 +17,22 @@ Grid::Grid() {
     }
 }
 
-void Grid::loadFromFile(const string& filename) {
+void Grid::loadFromFile(const string& filename, EnemyManager& manager) {
+
+    for (int y = 0; y < GRID_HEIGHT; ++y) {
+        for (int x = 0; x < GRID_WIDTH; ++x) {
+            cells[y][x].walkable = true;
+            cells[y][x].shape.setFillColor(Color::Transparent);
+        }
+    }
+    manager.deleteAllEnemy();
+    
     ifstream file(filename);
     if (!file) {
         cerr << "Erreur : Impossible d'ouvrir le fichier " << filename << endl;
         return;
     }
-    cout << "Chargement de la carte : " << filename << endl;
+
     for (int y = 0; y < GRID_HEIGHT; ++y) {
         string line;
         if (!getline(file, line)) break;
@@ -34,6 +43,7 @@ void Grid::loadFromFile(const string& filename) {
             }
         }
     }
+    spawnEnemies(manager, filename);
 }
 
 void Grid::spawnEnemies(EnemyManager& manager, const string& enemyFile) {
@@ -56,62 +66,13 @@ void Grid::spawnEnemies(EnemyManager& manager, const string& enemyFile) {
     file.close();
 }
 
-void Grid::switchMap(RenderWindow& window, EnemyManager& manager, const string& newMap, const string& newEnemyMap, Player& player) {
-    cout << "Début du switchMap()" << endl;
-
-    // Supprimer les ennemis de l'ancienne carte
-    manager.deleteAllEnemy();
-    cout << "Ennemis supprimés" << endl;
-
-    // Réinitialiser la grille
-    cells.clear();
-    cells.resize(GRID_HEIGHT, vector<Cell>(GRID_WIDTH));
-
-    for (int y = 0; y < GRID_HEIGHT; ++y) {
-        for (int x = 0; x < GRID_WIDTH; ++x) {
-            cells[y][x].walkable = true; // Par défaut, sol accessible
-            cells[y][x].position = Vector2f(x * CELL_SIZE, y * CELL_SIZE);
-            cells[y][x].shape = RectangleShape(Vector2f(CELL_SIZE, CELL_SIZE));
-            cells[y][x].shape.setPosition(cells[y][x].position);
-            cells[y][x].shape.setFillColor(Color::Transparent); // Sol invisible par défaut
-            cells[y][x].shape.setOutlineThickness(1);
-            cells[y][x].shape.setOutlineColor(Color(50, 50, 50));
-        }
-    }
-
-
-    // Charger la nouvelle map
-    loadFromFile(newMap);
-    currentMap = newMap;
-    cout << "Carte chargée : " << currentMap << endl;
-
-    // Nettoyage et redessinage de la fenêtre
-    window.clear();
-    draw(window);
-    window.display();
-    cout << "Nouvelle carte affichée" << endl;
-
-    // Charger les nouveaux ennemis
-    spawnEnemies(manager, newEnemyMap);
-    currentEnemyMap = newEnemyMap;
-    cout << "Ennemis chargés depuis : " << currentEnemyMap << endl;
-
-    // Repositionner le joueur
-    player.shape.setPosition(100, 100);
-    cout << "Joueur repositionné" << endl;
-}
-
-
-
 void Grid::draw(RenderWindow& window) {
-    cout << "Affichage de la carte : " << currentMap << endl;
     for (int y = 0; y < GRID_HEIGHT; ++y) {
         for (int x = 0; x < GRID_WIDTH; ++x) {
             window.draw(cells[y][x].shape);
         }
     }
 }
-
 
 Cell& Grid::getCell(int x, int y) {
     return cells[y][x];
