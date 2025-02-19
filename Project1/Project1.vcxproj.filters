@@ -25,6 +25,24 @@
     <Filter Include="Fichiers sources\Manager">
       <UniqueIdentifier>{7af65490-e9fa-41bf-a1de-a3a432b01914}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Fichiers d%27en-tête\BehaviorTree">
+      <UniqueIdentifier>{7888b787-56d9-48d8-a043-2865a1bae4c8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\FSM">
+      <UniqueIdentifier>{2538dea3-030c-4df5-8c95-864b83c2f927}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\GOAP">
+      <UniqueIdentifier>{f5012dbb-edfe-4f08-9cdd-518d8e96bda1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\BehaviorTree">
+      <UniqueIdentifier>{3f3c3606-588a-4784-b9fc-a1167a5e5775}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\BehaviorTree\Patrouille">
+      <UniqueIdentifier>{12f62b7a-9ca8-4d95-8c3d-a203eec8d455}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\BehaviorTree\Detection">
+      <UniqueIdentifier>{225c6f1f-949a-4ca4-9eec-237d802ff6e5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -42,34 +60,10 @@
     <ClCompile Include="Grid.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="PatrolMGS.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="Action.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="Goal.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="GOAPPlanner.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
     <ClCompile Include="Node.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
     <ClCompile Include="Pathfinding.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="MoveToReloadAction.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="ReloadAction.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="ShootAction.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="ShooterEnemy.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
     <ClCompile Include="FootStep.cpp">
@@ -84,6 +78,33 @@
     <ClCompile Include="FootStepsManager.cpp">
       <Filter>Fichiers sources\Manager</Filter>
     </ClCompile>
+    <ClCompile Include="CameraMGS.cpp">
+      <Filter>Fichiers sources\BehaviorTree</Filter>
+    </ClCompile>
+    <ClCompile Include="ReloadAction.cpp">
+      <Filter>Fichiers sources\GOAP</Filter>
+    </ClCompile>
+    <ClCompile Include="Action.cpp">
+      <Filter>Fichiers sources\GOAP</Filter>
+    </ClCompile>
+    <ClCompile Include="Goal.cpp">
+      <Filter>Fichiers sources\GOAP</Filter>
+    </ClCompile>
+    <ClCompile Include="GOAPPlanner.cpp">
+      <Filter>Fichiers sources\GOAP</Filter>
+    </ClCompile>
+    <ClCompile Include="PatrolMGS.cpp">
+      <Filter>Fichiers sources\FSM</Filter>
+    </ClCompile>
+    <ClCompile Include="ShooterEnemy.cpp">
+      <Filter>Fichiers sources\GOAP</Filter>
+    </ClCompile>
+    <ClCompile Include="ShootAction.cpp">
+      <Filter>Fichiers sources\GOAP</Filter>
+    </ClCompile>
+    <ClCompile Include="MoveToReloadAction.cpp">
+      <Filter>Fichiers sources\GOAP</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Entity.hpp">
@@ -96,9 +117,6 @@
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
     <ClInclude Include="Grid.hpp">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="Action.hpp">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
     <ClInclude Include="Node.hpp">
@@ -133,6 +151,39 @@
     </ClInclude>
     <ClInclude Include="ShootAction.hpp">
       <Filter>Fichiers d%27en-tête\GOAP</Filter>
+    </ClInclude>
+    <ClInclude Include="BTNode.hpp">
+      <Filter>Fichiers d%27en-tête\BehaviorTree</Filter>
+    </ClInclude>
+    <ClInclude Include="SelectorNode.hpp">
+      <Filter>Fichiers d%27en-tête\BehaviorTree</Filter>
+    </ClInclude>
+    <ClInclude Include="Blackboard.hpp">
+      <Filter>Fichiers d%27en-tête\BehaviorTree</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraMGS.hpp">
+      <Filter>Fichiers d%27en-tête\BehaviorTree</Filter>
+    </ClInclude>
+    <ClInclude Include="Action.hpp">
+      <Filter>Fichiers d%27en-tête\GOAP</Filter>
+    </ClInclude>
+    <ClInclude Include="SequencePatrouille.hpp">
+      <Filter>Fichiers d%27en-tête\BehaviorTree\Patrouille</Filter>
+    </ClInclude>
+    <ClInclude Include="SequenceDetection.hpp">
+      <Filter>Fichiers d%27en-tête\BehaviorTree\Detection</Filter>
+    </ClInclude>
+    <ClInclude Include="CheckPlayer.hpp">
+      <Filter>Fichiers d%27en-tête\BehaviorTree\Detection</Filter>
+    </ClInclude>
+    <ClInclude Include="TriggerAlarm.hpp">
+      <Filter>Fichiers d%27en-tête\BehaviorTree\Detection</Filter>
+    </ClInclude>
+    <ClInclude Include="RotateCamera.hpp">
+      <Filter>Fichiers d%27en-tête\BehaviorTree\Patrouille</Filter>
+    </ClInclude>
+    <ClInclude Include="ScanArea.hpp">
+      <Filter>Fichiers d%27en-tête\BehaviorTree\Patrouille</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
