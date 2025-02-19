@@ -149,9 +149,7 @@ void PatrolMGS::RandomChase(float deltaTime, Grid& grid) {
         bool validPosition = false;
         while (!validPosition) {
             randomx = rand() % 30;
-            cout << "x : " << randomx << endl;
             randomy = rand() % 20;
-            cout << "y : " << randomy << endl;
             if (grid.getCell(randomx, randomy).walkable) {
                 validPosition = true;
             }
@@ -193,7 +191,7 @@ void PatrolMGS::setMenacedState()
     m_delay.restart();
     m_state = State::MENACE;
     m_time = 0.f;
-	SPEED = 140.f;
+	SPEED = 200.f;
 	shape.setFillColor(Color::Yellow);
 }
 
