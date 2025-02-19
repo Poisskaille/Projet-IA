@@ -3,12 +3,12 @@
 
 #include "Enemy.hpp"
 #include "Pathfinding.hpp"
-#include <SFML/Graphics.hpp>
-#include <SFML/System.hpp>
+#include <cstdlib>
+
 using namespace std;
 using namespace sf;
 class Grid;
-#include <cstdlib>
+
 
 class PatrolMGS : public Enemy {
 public:
@@ -41,7 +41,7 @@ public:
     void setTime(float time);
     void setMove(bool value);
 
-    int getState();
+    State getState();
     Clock m_delay;
     Pathfinding pathfinding;
 private:

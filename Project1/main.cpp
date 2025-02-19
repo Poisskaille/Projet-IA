@@ -22,7 +22,6 @@ int main() {
     grid.loadFromFile("map.txt",manager);
 
     CameraMGS camera1({ 700,500 }, 90, 280);
-
     Clock clock;
 
     while (window.isOpen()) {
