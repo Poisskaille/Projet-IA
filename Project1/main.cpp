@@ -3,7 +3,7 @@
 #include "Enemy.hpp"
 #include "Grid.hpp"
 #include "Player.hpp"
-
+#include "CameraMGS.hpp"
 
 FootStepManager stepmanager;
 EnemyManager manager;
@@ -20,9 +20,8 @@ int main() {
     //vector<Enemy> enemies = { Enemy(100, 100), Enemy(700, 100) };
     Grid grid;
     grid.loadFromFile("map.txt",manager);
-    manager.createMGSPatrol(100, 300, { 2, 2 }, { 3, 15 }, { 14, 9 });
-    manager.createMGSPatrol(600, 120, { 18, 3 }, { 10, 22 }, { 30, 6 });
 
+    CameraMGS camera1({ 700,500 }, 90, 280);
     Clock clock;
 
     while (window.isOpen()) {
@@ -50,6 +49,7 @@ int main() {
 
         if (Keyboard::isKeyPressed(Keyboard::L)) {
             grid.loadFromFile("map.txt", manager);
+            player.shape.setPosition(100, 500);
         }
 
 
@@ -63,6 +63,9 @@ int main() {
         window.draw(player.getStunZone());
         window.draw(player.shape);
         manager.update(window,deltaTime,grid,player.shape.getGlobalBounds(),player.shape.getPosition(),player.SPEED,player.getStunZone().getGlobalBounds(),player.getStun());
+
+        camera1.update(deltaTime,grid);
+        camera1.draw(window);
         window.display();
     }
 

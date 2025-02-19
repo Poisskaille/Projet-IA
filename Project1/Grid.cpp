@@ -37,7 +37,7 @@ void Grid::loadFromFile(const string& filename, EnemyManager& manager) {
         string line;
         if (!getline(file, line)) break;
         for (int x = 0; x < GRID_WIDTH && x < line.size(); ++x) {
-            cells[y][x].walkable = (line[x] == '0' || line[x] == '2');
+            cells[y][x].walkable = (line[x] == '0' || line[x] == '2' || line[x] == '3' || line[x] == '4');
             if (!cells[y][x].walkable) {    
                 cells[y][x].shape.setFillColor(Color::White);
             }
@@ -59,6 +59,12 @@ void Grid::spawnEnemies(EnemyManager& manager, const string& enemyFile) {
         for (int x = 0; x < line.size(); ++x) {
             if (line[x] == '2') {
                 manager.createShooterEnemy(x * CELL_SIZE, y * CELL_SIZE, *this);
+            }
+            if (line[x] == '3') {
+                manager.createMGSPatrol(100, 100, { 2, 2 }, { 3, 15 }, { 14, 9 });
+            }
+            if (line[x] == '4') {
+                manager.createMGSPatrol(600, 120, { 18, 3 }, { 10, 22 }, { 30, 6 });
             }
         }
         y++;
