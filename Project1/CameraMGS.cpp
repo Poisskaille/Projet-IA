@@ -18,9 +18,34 @@ CameraMGS::~CameraMGS()
 
 void CameraMGS::update(float deltaTime, Grid& grid)
 {
-	Rotate(deltaTime);
+    if (m_root) {
+        m_root->execute();
+    }
     rayCasting(grid);
 }
+
+void CameraMGS::initTree(Grid& grid, EnemyManager& manager, Player& player)
+{
+    m_root = make_unique<SelectorNode>();
+    rotateAction = make_unique<RotateCamera>(*this, grid);
+
+    sequencePatrouille = make_unique<SequencePatrouille>();
+    sequencePatrouille->addChild(move(rotateAction));
+
+    //
+
+    alerteAction = make_unique<AlerteAll>(manager);
+
+    sequenceAlerte = make_unique<SequenceAlerte>();
+    conditionAlerte = make_unique<ConditionAlerte>(*this, player);
+
+    sequenceAlerte->addChild(move(conditionAlerte));
+    sequenceAlerte->addChild(move(alerteAction));
+
+    m_root->addChild(move(sequenceAlerte));
+    m_root->addChild(move(sequencePatrouille));
+}
+
 
 void CameraMGS::Rotate(float deltaTime) {
     if (!m_reverseSwing) {
@@ -82,4 +107,9 @@ void CameraMGS::rayCasting(Grid& grid) {
         }
         m_vision.setPoint(i + 1, rayPos);
     }
+}
+
+ConvexShape CameraMGS::getVision()
+{
+    return m_vision;
 }

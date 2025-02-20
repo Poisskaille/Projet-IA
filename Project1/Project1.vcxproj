@@ -138,7 +138,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Action.cpp" />
+    <ClCompile Include="AlerteAll.cpp" />
     <ClCompile Include="CameraMGS.cpp" />
+    <ClCompile Include="ConditionAlerte.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="EnemyManager.cpp" />
     <ClCompile Include="Entity.cpp" />
@@ -155,15 +157,16 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="ReloadAction.cpp" />
     <ClCompile Include="ReloadAction.hpp" />
+    <ClCompile Include="RotateCamera.cpp" />
     <ClCompile Include="ShootAction.cpp" />
     <ClCompile Include="ShooterEnemy.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Action.hpp" />
-    <ClInclude Include="Blackboard.hpp" />
-    <ClInclude Include="BTNode.hpp" />
+    <ClInclude Include="AlerteAll.hpp" />
+    <ClInclude Include="BehaviorNode.hpp" />
     <ClInclude Include="CameraMGS.hpp" />
-    <ClInclude Include="CheckPlayer.hpp" />
+    <ClInclude Include="ConditionAlerte.hpp" />
     <ClInclude Include="Enemy.hpp" />
     <ClInclude Include="EnemyManager.hpp" />
     <ClInclude Include="Entity.hpp" />
@@ -178,13 +181,11 @@
     <ClInclude Include="PatrolMGS.hpp" />
     <ClInclude Include="Player.hpp" />
     <ClInclude Include="RotateCamera.hpp" />
-    <ClInclude Include="ScanArea.hpp" />
     <ClInclude Include="SelectorNode.hpp" />
-    <ClInclude Include="SequenceDetection.hpp" />
+    <ClInclude Include="SequenceAlerte.hpp" />
     <ClInclude Include="SequencePatrouille.hpp" />
     <ClInclude Include="ShootAction.hpp" />
     <ClInclude Include="ShooterEnemy.hpp" />
-    <ClInclude Include="TriggerAlarm.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
