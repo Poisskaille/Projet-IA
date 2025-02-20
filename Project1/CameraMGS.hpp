@@ -26,6 +26,8 @@ public:
 
 	ConvexShape getVision();
 
+	void setDrawable(bool value);
+
 private:
 
 	RectangleShape m_shape;
@@ -36,6 +38,7 @@ private:
 	float m_currentAngle;
 
 	bool m_reverseSwing = false;
+	bool isDrawable = true;
 
 	unique_ptr<SelectorNode> m_root;
 

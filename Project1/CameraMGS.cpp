@@ -18,10 +18,12 @@ CameraMGS::~CameraMGS()
 
 void CameraMGS::update(float deltaTime, Grid& grid)
 {
-    if (m_root) {
-        m_root->execute();
-    }
-    rayCasting(grid);
+    if (isDrawable) {
+        if (m_root) {
+            m_root->execute();
+        }
+        rayCasting(grid);
+    }  
 }
 
 void CameraMGS::initTree(Grid& grid, EnemyManager& manager, Player& player)
@@ -66,7 +68,11 @@ void CameraMGS::Rotate(float deltaTime) {
 }
 
 
-void CameraMGS::draw(RenderWindow& window) { window.draw(m_shape); window.draw(m_vision); }
+void CameraMGS::draw(RenderWindow& window) {
+    if (isDrawable) {
+        window.draw(m_shape); window.draw(m_vision);
+    }
+}
 
 void CameraMGS::rayCasting(Grid& grid) {
     float fov = 20.f;
@@ -112,4 +118,9 @@ void CameraMGS::rayCasting(Grid& grid) {
 ConvexShape CameraMGS::getVision()
 {
     return m_vision;
+}
+
+void CameraMGS::setDrawable(bool value)
+{
+    isDrawable = value;
 }
