@@ -1,24 +1,28 @@
-#ifndef SHOOTERENEMY_HPP
-#define SHOOTERENEMY_HPP
-
-#include "Enemy.hpp"
+#ifndef SHOOTER_ENEMY_HPP
+#define SHOOTER_ENEMY_HPP
 #include "GOAPPlanner.hpp"
-#include "Grid.hpp"
+#include "ShootAction.hpp"
+#include "MoveToReloadAction.hpp"
+#include "ReloadAction.hpp"
+#include "State.hpp"
 #include <SFML/Graphics.hpp>
-#include <SFML/System.hpp>
-class Grid;
 
-class ShooterEnemy : public Enemy {
-public:
-    ShooterEnemy(float x, float y, Grid& grid);
-    void update(float deltaTime, Grid& grid, const Vector2f& playerPos) override;
-    void draw(RenderWindow& window);
+using namespace sf;
 
+class ShooterEnemy : public Enemy{
 private:
-    sf::Vector2f m_position;
-    int m_ammo = 5;
-    GOAPPlanner m_planner;
-    Grid& m_grid;
+    State state;
+    GOAPPlanner planner;
+    CircleShape shape;
+    Vector2f position;
+
+public:
+
+    //void update(float deltaTime, Grid& grid, const Vector2f& playerPos) override{}
+
+    void draw(RenderWindow& window) {
+        window.draw(shape);
+    }
 };
 
 #endif

@@ -1,18 +1,16 @@
 #ifndef SHOOT_ACTION_HPP
 #define SHOOT_ACTION_HPP
-
 #include "Action.hpp"
-#include <SFML/Graphics.hpp>
-#include <SFML/System.hpp>
+#include "State.hpp"
 
 class ShootAction : public Action {
 public:
-    ShootAction(int& ammo);
-    bool canExecute() override;
-    void execute() override;
+    bool canExecute(const State& state) override {
+        return state.Ammo() > 0;
+    }
 
-private:
-    int& m_ammo;
+    void execute(State& state) override {
+    }
 };
 
 #endif
