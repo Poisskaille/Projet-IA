@@ -1,18 +1,15 @@
 #ifndef RELOAD_ACTION_HPP
 #define RELOAD_ACTION_HPP
-
 #include "Action.hpp"
-#include <SFML/Graphics.hpp>
-#include <SFML/System.hpp>
 
 class ReloadAction : public Action {
 public:
-    ReloadAction(int& ammo);
-    bool canExecute() override;
-    void execute() override;
+    bool canExecute(const State& state) override {
+        return state.AmmoFind();
+    }
 
-private:
-    int& m_ammo;
+    void execute(State& state) override {
+    }
 };
 
 #endif

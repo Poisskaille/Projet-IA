@@ -20,7 +20,10 @@ void EnemyManager::update(RenderWindow& window, float deltaTime, Grid& grid,cons
 		enemy->rayCasting(grid, window);
 	}
 
-	for (auto& enemy : m_shooter_enemies) { enemy->update(deltaTime, grid, playerPos); }
+	for (auto& enemy : m_shooter_enemies) {
+		enemy->update(deltaTime, grid, playerPos);
+		enemy->draw(window);
+	}
 
 	if (checkFOV(playerBounds)) {
 		for (auto& enemy : m_mgs_enemies) {
@@ -46,8 +49,8 @@ void EnemyManager::createMGSPatrol(float posX, float posY, Vector2i p1, Vector2i
 { m_mgs_enemies.push_back(make_unique<PatrolMGS>(posX, posY, p1, p2, p3)); }
 
 
-void EnemyManager::createShooterEnemy(float posX, float posY, Grid& grid) 
-{ m_shooter_enemies.push_back(make_unique<ShooterEnemy>(posX, posY, grid)); }
+void EnemyManager::createShooterEnemy(float posX, float posY, Grid& grid) {}
+//{ m_shooter_enemies.push_back(make_unique<ShooterEnemy>(posX, posY, grid)); }
 
 void EnemyManager::setMenacedState()
 { for (auto& enemy : m_mgs_enemies) { enemy->setMenacedState(); } }

@@ -1,23 +1,23 @@
-#ifndef GOAP_PLANNER_HPP
-#define GOAP_PLANNER_HPP
-
+#ifndef GOAPPLANNER_HPP
+#define GOAPPLANNER_HPP
 #include "Action.hpp"
-#include "Goal.hpp"
 #include <vector>
-#include <SFML/Graphics.hpp>
-#include <SFML/System.hpp>
-
-using namespace std;
 
 class GOAPPlanner {
-public:
-    void addAction(Action* action);
-    void addGoal(Goal goal);
-    Action* getBestAction();
-
 private:
-    vector<Action*> m_actions;
-    vector<Goal> m_goals;
+    std::vector<Action*> actions;
+
+public:
+    void addAction(Action* action) { actions.push_back(action); }
+
+    void planAndExecute(State& state) {
+        for (auto* action : actions) {
+            if (action->canExecute(state)) {
+                action->execute(state);
+                break;
+            }
+        }
+    }
 };
 
 #endif
