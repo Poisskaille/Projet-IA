@@ -6,7 +6,7 @@
 #include "Grid.hpp"
 
 ShooterEnemy::ShooterEnemy(float x, float y, Grid& grid) : Enemy(x, y), m_grid(grid) {
-    shape.setFillColor(Color::Blue);
+    shape.setFillColor(Color::Green);
 
     m_planner.addAction(new ShootAction(m_ammo));
     m_planner.addAction(new MoveToReloadAction(m_position, grid));

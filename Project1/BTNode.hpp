@@ -1,11 +1,11 @@
+#include "Blackboard.hpp"
 #include <iostream>
 #include <vector>
 #include <memory>
-#include "Blackboard.hpp"
-#include "Player.hpp"
 
-class PatrolMGS;
- 
+using namespace std;
+using namespace sf;
+
 enum class NodeState { SUCCESS, FAILURE, RUNNING };
 
 class BTNode {

@@ -1,6 +1,6 @@
 #include "BTNode.hpp"
 
-class SequenceAlerte : public BTNode {
+class SequenceDetection : public BTNode {
 private:
     vector<unique_ptr<BTNode>> children;
 public:

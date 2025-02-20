@@ -1,8 +1,8 @@
-
 #include "Grid.hpp"
 #include "EnemyManager.hpp"
 #include <fstream>
 #include <iostream>
+#include "Player.hpp"
 
 Grid::Grid() {
     cells.resize(GRID_HEIGHT, vector<Cell>(GRID_WIDTH, { true, {0.f, 0.f}, RectangleShape(Vector2f(CELL_SIZE, CELL_SIZE)) }));
@@ -17,7 +17,16 @@ Grid::Grid() {
     }
 }
 
-void Grid::loadFromFile(const string& filename) {
+void Grid::loadFromFile(const string& filename, EnemyManager& manager) {
+
+    for (int y = 0; y < GRID_HEIGHT; ++y) {
+        for (int x = 0; x < GRID_WIDTH; ++x) {
+            cells[y][x].walkable = true;
+            cells[y][x].shape.setFillColor(Color::Transparent);
+        }
+    }
+    manager.deleteAllEnemy();
+    
     ifstream file(filename);
     if (!file) {
         cerr << "Erreur : Impossible d'ouvrir le fichier " << filename << endl;
@@ -28,21 +37,22 @@ void Grid::loadFromFile(const string& filename) {
         string line;
         if (!getline(file, line)) break;
         for (int x = 0; x < GRID_WIDTH && x < line.size(); ++x) {
-            cells[y][x].walkable = (line[x] == '0');
+            cells[y][x].walkable = (line[x] == '0' || line[x] == '2' || line[x] == '3' || line[x] == '4');
             if (!cells[y][x].walkable) {    
                 cells[y][x].shape.setFillColor(Color::White);
             }
         }
     }
+    spawnEnemies(manager, filename);
 }
 
 void Grid::spawnEnemies(EnemyManager& manager, const string& enemyFile) {
-    ifstream file("map.txt");
+    ifstream file(enemyFile);
     if (!file) {
-        cerr << "Erreur : Impossible d'ouvrir map.txt" << endl;
+        cerr << "Erreur : Impossible d'ouvrir map2.txt" << endl;
         return;
     }
-
+    cout << "Chargement des ennemis depuis : " << enemyFile << endl;
     int y = 0;
     string line;
     while (getline(file, line)) {
@@ -50,23 +60,16 @@ void Grid::spawnEnemies(EnemyManager& manager, const string& enemyFile) {
             if (line[x] == '2') {
                 manager.createShooterEnemy(x * CELL_SIZE, y * CELL_SIZE, *this);
             }
+            if (line[x] == '3') {
+                manager.createMGSPatrol(100, 100, { 2, 2 }, { 3, 15 }, { 14, 9 });
+            }
+            if (line[x] == '4') {
+                manager.createMGSPatrol(600, 120, { 18, 3 }, { 10, 22 }, { 30, 6 });
+            }
         }
         y++;
     }
     file.close();
-}
-
-void Grid::switchMap(RenderWindow& window, EnemyManager& manager, const string& newMap, const string& newEnemyMap) {
-    cout << "Changement de carte vers : " << newMap << " et " << newEnemyMap << endl;
-
-    loadFromFile(newMap);
-    currentMap = newMap;
-
-    manager.deleteAllEnemy();
-    window.clear();
-
-    spawnEnemies(manager, newEnemyMap);
-    currentEnemyMap = newEnemyMap;
 }
 
 void Grid::draw(RenderWindow& window) {
@@ -81,9 +84,9 @@ Cell& Grid::getCell(int x, int y) {
     return cells[y][x];
 }
 
-bool Grid::isWalkable(sf::Vector2f pos) {
-    int x = static_cast<int>(pos.x / CELL_SIZE);  // Conversion en index de cellule
-    int y = static_cast<int>(pos.y / CELL_SIZE);  // Conversion en index de cellule
+bool Grid::isWalkable(Vector2f pos) {
+    int x = static_cast<int>(pos.x / CELL_SIZE);
+    int y = static_cast<int>(pos.y / CELL_SIZE);
     if (x < 0 || x >= GRID_WIDTH || y < 0 || y >= GRID_HEIGHT)
         return false;
     return cells[y][x].walkable;

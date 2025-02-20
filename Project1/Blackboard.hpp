@@ -1,18 +1,18 @@
-#include <iostream>
+#include <SFML/Graphics.hpp>
+#include <unordered_map>
 #include <string>
 
 using namespace std;
-
-enum class EnemyState {NORMAL, SPOTTED, MENACE, ALERTE,};
+using namespace sf;
 
 class Blackboard {
 private:
-    EnemyState currentState;
-
+    unordered_map<string, int> data;
 public:
-    Blackboard() : currentState(EnemyState::NORMAL) {}
-
-    EnemyState getState() const { return currentState; }
-    void setState(EnemyState newState) { currentState = newState; }
-
+    void SetValue(const string& key, int value) {
+        data[key] = value;
+    }
+    int GetValue(const string& key) {
+        return data[key];
+    }
 };

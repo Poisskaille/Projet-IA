@@ -3,8 +3,8 @@
 
 #include "Enemy.hpp"
 #include "Pathfinding.hpp"
-#include <SFML/Graphics.hpp>
-#include <SFML/System.hpp>
+#include <cstdlib>
+
 using namespace std;
 using namespace sf;
 class Grid;
@@ -22,8 +22,9 @@ public:
     void draw(RenderWindow& window);
 
     void Patrol(float deltaTime, Grid& grid);
-    void Spotted(float deltaTime);
-    void chase(const Vector2f& playerPos,float deltaTime);
+    void Spotted(float deltaTime, Grid& grid);
+    void chase(const Vector2f& playerPos,float deltaTime, Grid& grid);
+    void RandomChase(float deltaTime, Grid& grid);
 
     void setMenacedState();
     void setNormalState();
@@ -40,13 +41,14 @@ public:
     void setTime(float time);
     void setMove(bool value);
 
-    int getState();
+    State getState();
     Clock m_delay;
     Pathfinding pathfinding;
 private:
     
     float SPEED = 100.0f;
     bool m_canMove = true;
+    bool newRandomPos = false;
 
     Vector2f m_position;
     Vector2f m_direction;
@@ -65,7 +67,11 @@ private:
     float m_time = 0;
     bool isNormal = true;
 
+    int randomx = 0;
+    int randomy = 0;
     State m_state;
+
+    Clock chaseDelay;
 
 };
 #endif

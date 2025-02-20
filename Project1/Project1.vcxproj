@@ -138,9 +138,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Action.cpp" />
+    <ClCompile Include="CameraMGS.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="EnemyManager.cpp" />
     <ClCompile Include="Entity.cpp" />
+    <ClCompile Include="FootStep.cpp" />
+    <ClCompile Include="FootStepsManager.cpp" />
     <ClCompile Include="Goal.cpp" />
     <ClCompile Include="GOAPPlanner.cpp" />
     <ClCompile Include="Grid.cpp" />
@@ -157,9 +160,15 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Action.hpp" />
+    <ClInclude Include="Blackboard.hpp" />
+    <ClInclude Include="BTNode.hpp" />
+    <ClInclude Include="CameraMGS.hpp" />
+    <ClInclude Include="CheckPlayer.hpp" />
     <ClInclude Include="Enemy.hpp" />
     <ClInclude Include="EnemyManager.hpp" />
     <ClInclude Include="Entity.hpp" />
+    <ClInclude Include="FootStep.hpp" />
+    <ClInclude Include="FootStepsManager.hpp" />
     <ClInclude Include="Goal.hpp" />
     <ClInclude Include="GOAPPlanner.hpp" />
     <ClInclude Include="Grid.hpp" />
@@ -168,8 +177,14 @@
     <ClInclude Include="MoveToReloadAction.hpp" />
     <ClInclude Include="PatrolMGS.hpp" />
     <ClInclude Include="Player.hpp" />
+    <ClInclude Include="RotateCamera.hpp" />
+    <ClInclude Include="ScanArea.hpp" />
+    <ClInclude Include="SelectorNode.hpp" />
+    <ClInclude Include="SequenceDetection.hpp" />
+    <ClInclude Include="SequencePatrouille.hpp" />
     <ClInclude Include="ShootAction.hpp" />
     <ClInclude Include="ShooterEnemy.hpp" />
+    <ClInclude Include="TriggerAlarm.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

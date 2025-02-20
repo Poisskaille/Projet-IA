@@ -1,6 +1,6 @@
 #include "BTNode.hpp"
 
-class SequenceMenance : public BTNode {
+class SequencePatrouille : public BTNode {
 private:
     vector<unique_ptr<BTNode>> children;
 public:

@@ -3,9 +3,9 @@
 
 #include "PatrolMGS.hpp"
 #include "ShooterEnemy.hpp"
-#include <SFML/Graphics.hpp>
-#include <SFML/System.hpp>
+#include "SFML/Audio.hpp"
 
+class Player;
 class Grid;
 
 class EnemyManager {
@@ -27,9 +27,20 @@ public:
 	bool checkFOV(const FloatRect& playerBounds);
 	bool checkSpotted(const float& playerSpeed, const FloatRect& playerBounds, const Vector2f& playerPos);
 
+	void InitializeSound();
+
+	vector<ConvexShape> getShape()const;
+	const vector<unique_ptr<PatrolMGS>>& getEnemies() const;
+
 private:
+
 	vector<unique_ptr<PatrolMGS>> m_mgs_enemies;
 	vector<unique_ptr<ShooterEnemy>> m_shooter_enemies;
+
+	SoundBuffer alertplay;
+	Sound alert;
+
+	bool m_soundInit = false;
 };
 
 #endif

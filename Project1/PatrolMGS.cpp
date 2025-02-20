@@ -3,9 +3,9 @@
 
 PatrolMGS::PatrolMGS(float x, float y, Vector2i p1, Vector2i p2, Vector2i p3)
 	: Enemy(x, y), m_position(x, y), m_p1(p1), m_p2(p2), m_p3(p3), m_currentWaypoint(0), m_state(State::NORMAL)
-{
-	shape.setSize({ 20, 20 });
-	shape.setFillColor(Color::Magenta);
+{   
+	shape.setSize({ 15, 15 });
+	shape.setFillColor(Color::Green);
 	shape.setPosition(m_position);
     shape.setOrigin(10, 10);
     m_sounddetection.setRadius(150);
@@ -23,29 +23,26 @@ void PatrolMGS::update(float deltaTime, Grid& grid, const Vector2f& playerPos)
         Patrol(deltaTime,grid);
         break;
     case State::SPOTTED:
-        if (m_time > 1) { Spotted(deltaTime); } 
+        if (m_time > 1) { Spotted(deltaTime,grid); } 
         break;
     case State::MENACE:
-        if (m_delay.getElapsedTime().asSeconds() > 5) { setNormalState(); }
+        RandomChase(deltaTime, grid);
+        if (m_delay.getElapsedTime().asSeconds() > 10) { setNormalState(); newRandomPos = false; }
         break;
     case State::ALERTE:
-            chase(playerPos, deltaTime);
+            chase(playerPos, deltaTime, grid);
             cout << m_delay.getElapsedTime().asSeconds() << endl;
-            if (m_delay.getElapsedTime().asSeconds() > 2) { setMenacedState(); }
+            if (m_delay.getElapsedTime().asSeconds() > 5) { setMenacedState(); }
             break;
     case State::STUNNED:
         if (m_delay.getElapsedTime().asSeconds() > 5) { setMenacedState(); }
         break;
     }
     if (!m_canMove) { m_time += deltaTime; }
-
 }
 
 void PatrolMGS::draw(RenderWindow& window)
-{
-    window.draw(shape);
-    window.draw(m_sounddetection);
-}
+{ window.draw(shape); window.draw(m_sounddetection); }
 
 void PatrolMGS::Patrol(float deltaTime, Grid& grid) {
     Vector2i waypoints[3] = { m_p1, m_p2, m_p3 };
@@ -85,35 +82,106 @@ void PatrolMGS::Patrol(float deltaTime, Grid& grid) {
     }
 }
 
+void PatrolMGS::Spotted(float deltaTime, Grid& grid) {
+    Vector2i playerGridPos(m_playerPos.x / CELL_SIZE, m_playerPos.y / CELL_SIZE);
 
-
-void PatrolMGS::Spotted(float deltaTime) {
-    Vector2f direction = m_playerPos - m_position;
-    float distance = sqrt(direction.x * direction.x + direction.y * direction.y);
-
-    if (distance < 5.0f) {
-        m_canMove = false;
-        if (m_time >= 4) { m_canMove = true; isNormal = true; m_time = 0; setNormalState(); }
+    if (m_path.empty() || m_path.back() != playerGridPos) {
+        m_path = pathfinding.findPath(grid, Vector2i(m_position.x / CELL_SIZE, m_position.y / CELL_SIZE), playerGridPos);
+        m_pathIndex = 0;
     }
-    else {
-        direction /= distance;
-        m_direction = direction;
-        m_position += direction;
 
-        m_position += direction * SPEED * deltaTime;
+    if (!m_path.empty() && m_pathIndex < m_path.size()) {
+        Vector2f nextPos(m_path[m_pathIndex].x * CELL_SIZE, m_path[m_pathIndex].y * CELL_SIZE);
+
+        Vector2f direction = nextPos - m_position;
+        float distance = sqrt(direction.x * direction.x + direction.y * direction.y);
+
+        if (distance < 5.f) {
+            m_pathIndex++;
+            m_canMove = false;
+
+        }
+        else {
+            direction /= distance;
+            m_direction = direction;
+            m_position += direction * SPEED * deltaTime;
+        }
+
     }
+    if (m_time >= 4) { m_canMove = true; isNormal = true; m_time = 0; setNormalState(); }
+
+        shape.setPosition(m_position);
+        m_sounddetection.setPosition(shape.getPosition());
+}
+
+void PatrolMGS::chase(const Vector2f& playerPos, float deltaTime, Grid& grid) {
+
+    Vector2i playerGridPos(playerPos.x / CELL_SIZE, playerPos.y / CELL_SIZE);
+    Vector2i enemyGridPos(m_position.x / CELL_SIZE, m_position.y / CELL_SIZE);
+
+    if ((m_path.empty() || m_path.back() != playerGridPos) && chaseDelay.getElapsedTime().asSeconds() > 2.f) {
+        m_path = pathfinding.findPath(grid, enemyGridPos, playerGridPos);
+        m_pathIndex = 0;
+        chaseDelay.restart();
+    }
+
+    if (!m_path.empty() && m_pathIndex < m_path.size()) {
+        Vector2f nextPos(m_path[m_pathIndex].x * CELL_SIZE, m_path[m_pathIndex].y * CELL_SIZE);
+        Vector2f direction = nextPos - m_position;
+        float distance = sqrt(direction.x * direction.x + direction.y * direction.y);
+
+        if (distance < 5.f) {
+            m_pathIndex++;
+        }
+        else {
+            direction /= distance;
+            m_direction = direction;
+            m_position += direction * SPEED * deltaTime;
+        }
+    }
+
     shape.setPosition(m_position);
     m_sounddetection.setPosition(shape.getPosition());
 }
 
-void PatrolMGS::chase(const Vector2f& playerPos, float deltaTime) {
-    Vector2f direction = playerPos - m_position;
-    float distance = sqrt(direction.x * direction.x + direction.y * direction.y);
+void PatrolMGS::RandomChase(float deltaTime, Grid& grid) {
+    if (!newRandomPos) {
+        bool validPosition = false;
+        while (!validPosition) {
+            randomx = rand() % 30;
+            randomy = rand() % 20;
+            if (grid.getCell(randomx, randomy).walkable) {
+                validPosition = true;
+            }
+        }
+        newRandomPos = true;
+    }
 
-        direction /= distance;
-        m_direction = direction;
-        m_position += direction;
-        m_position += direction * SPEED * deltaTime;
+    Vector2i target = { randomx, randomy };
+
+    if (m_path.empty() || m_path.back() != target) {
+        m_path = pathfinding.findPath(grid, Vector2i(m_position.x / CELL_SIZE, m_position.y / CELL_SIZE), target);
+        m_pathIndex = 0;
+    }
+
+    if (!m_path.empty() && m_pathIndex < m_path.size()) {
+        Vector2f nextPos(m_path[m_pathIndex].x * CELL_SIZE, m_path[m_pathIndex].y * CELL_SIZE);
+        Vector2f direction = nextPos - m_position;
+
+        float distance = sqrt(direction.x * direction.x + direction.y * direction.y);
+
+        if (distance < 5.f) {
+            m_pathIndex++;
+            if (m_pathIndex >= m_path.size()) {
+                newRandomPos = false;
+            }
+        }
+        else {
+            direction /= distance;
+            m_direction = direction;
+            m_position += direction * SPEED * deltaTime;
+        }
+    }
     shape.setPosition(m_position);
     m_sounddetection.setPosition(shape.getPosition());
 }
@@ -123,7 +191,7 @@ void PatrolMGS::setMenacedState()
     m_delay.restart();
     m_state = State::MENACE;
     m_time = 0.f;
-	SPEED = 110.f;
+	SPEED = 200.f;
 	shape.setFillColor(Color::Yellow);
 }
 
@@ -143,7 +211,7 @@ void PatrolMGS::setAlerteState() {
 void PatrolMGS::setSpottedState(const Vector2f& playerPos) {
     m_playerPos = playerPos;
     m_state = State::SPOTTED;
-	SPEED = 25.f;
+	SPEED = 100.f;
 	shape.setFillColor(Color(107, 255, 250));
 }
 
@@ -234,14 +302,7 @@ void PatrolMGS::setTime(float time){ m_time = time; }
 
 void PatrolMGS::setMove(bool value){ m_canMove = value; }
 
-int PatrolMGS::getState()
+PatrolMGS::State PatrolMGS::getState()
 {
-    switch (m_state) {
-    case State::ALERTE:
-        return 1;
-        break;
-    case State::STUNNED:
-        return 2;
-        break;
-    }
+    return m_state;
 }

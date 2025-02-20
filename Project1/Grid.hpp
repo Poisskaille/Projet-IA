@@ -6,6 +6,7 @@
 #include <SFML/System.hpp>
 #include <string>
 
+class Player;
 class EnemyManager;
 
 using namespace std;
@@ -24,12 +25,12 @@ struct Cell {
 class Grid {
 public:
     Grid();
-    void loadFromFile(const string& filename);
+    void loadFromFile(const string& filename, EnemyManager& manager);
     void draw(RenderWindow& window);
     void spawnEnemies(EnemyManager& manager, const string& enemyFile);
-    void switchMap(RenderWindow& window, EnemyManager& manager, const string& newMap, const string& newEnemyMap);
+
     Cell& getCell(int x, int y);
-    bool isWalkable(sf::Vector2f pos);
+    bool isWalkable(Vector2f pos);
 private:
     vector<vector<Cell>> cells;
     string currentMap;
