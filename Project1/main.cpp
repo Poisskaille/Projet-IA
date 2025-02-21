@@ -1,9 +1,13 @@
 #include <SFML/Graphics.hpp>
 #include "EnemyManager.hpp"
+#include "TraperEnemy.hpp"
 #include "Enemy.hpp"
 #include "Grid.hpp"
 #include "Player.hpp"
 #include "CameraMGS.hpp"
+
+
+
 
 FootStepManager stepmanager;
 EnemyManager manager;
@@ -56,6 +60,11 @@ int main() {
             grid.loadFromFile("map.txt", manager);
             player.shape.setPosition(100, 500);
             camera1.setDrawable(true);
+        }
+
+        if (Keyboard::isKeyPressed(Keyboard::K)) {
+            grid.loadFromFile("map3.txt", manager);
+                player.shape.setPosition(100, 500);
         }
 
 

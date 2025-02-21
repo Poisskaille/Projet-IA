@@ -82,6 +82,9 @@ void Grid::spawnEnemies(EnemyManager& manager, const string& enemyFile) {
             if (line[x] == '4') {
                 manager.createMGSPatrol(600, 120, { 18, 3 }, { 10, 22 }, { 30, 6 });
             }
+            if (line[x] == '5') {
+                manager.createTraperEnemy(x * CELL_SIZE, y * CELL_SIZE, *this);
+            }
         }
         y++;
     }

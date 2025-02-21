@@ -3,6 +3,7 @@
 
 #include "PatrolMGS.hpp"
 #include "ShooterEnemy.hpp"
+#include "TraperEnemy.hpp"
 #include "SFML/Audio.hpp"
 
 class Player;
@@ -19,6 +20,7 @@ public:
 
 	void createMGSPatrol(float posX, float posY, Vector2i p1, Vector2i p2, Vector2i p3);
 	void createShooterEnemy(float posX, float posY, Grid& grid);
+	void createTraperEnemy(float posX, float posY, Grid& grid);
 	void setMenacedState();
 
 	void setNormalState();
@@ -36,6 +38,7 @@ private:
 
 	vector<unique_ptr<PatrolMGS>> m_mgs_enemies;
 	vector<unique_ptr<ShooterEnemy>> m_shooter_enemies;
+	vector<unique_ptr<TraperEnemy>> m_traper_enemies;
 
 	SoundBuffer alertplay;
 	Sound alert;

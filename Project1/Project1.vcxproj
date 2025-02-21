@@ -152,6 +152,9 @@
     <ClCompile Include="PatrolMGS.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="ReloadAction.hpp" />
+    <ClCompile Include="ShootAction.cpp" />
+    <ClCompile Include="ShooterEnemy.cpp" />
+    <ClCompile Include="TraperEnemy.cpp" />
     <ClCompile Include="RotateCamera.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -179,6 +182,7 @@
     <ClInclude Include="SequencePatrouille.hpp" />
     <ClInclude Include="ShootAction.hpp" />
     <ClInclude Include="ShooterEnemy.hpp" />
+    <ClInclude Include="TraperEnemy.hpp" />
     <ClInclude Include="State.hpp" />
     <ClInclude Include="TriggerAlarm.hpp" />
   </ItemGroup>
