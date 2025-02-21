@@ -3,6 +3,7 @@
 #include "Player.hpp"
 
 
+
 void EnemyManager::update(RenderWindow& window, float deltaTime, Grid& grid,const FloatRect& playerBounds,
 	const Vector2f playerPos,const float& playerSpeed, const FloatRect& stunzone, bool stun, const Player& player)
 {
@@ -24,7 +25,7 @@ void EnemyManager::update(RenderWindow& window, float deltaTime, Grid& grid,cons
 
 	for (auto& enemy : m_shooter_enemies) {
 		enemy->update(deltaTime, playerPos, grid);
-		enemy->getAgent().PerformAction();
+		enemy->getAgent().PerformAction(enemy->state);
 		enemy->draw(window);
 		player.checkProjectileCollision(enemy->getProjectiles());
 	}

@@ -15,14 +15,13 @@ using namespace sf;
 
 class ShooterEnemy {
 protected:
-    State state;
     GOAPPlanner planner;
     RectangleShape shape;
     Vector2f position;
-    GOAPAgent agent;
 
 public:
-
+    State state;
+    GOAPAgent agent;
     GOAPAgent& getAgent() { return agent; }
 
     ShooterEnemy(float x, float y) {
@@ -41,7 +40,7 @@ public:
             shape.setRadius(5.f);
             shape.setFillColor(Color::Yellow);
             shape.setPosition(pos);
-            velocity = dir * 500.f;  // Vitesse du projectile
+            velocity = dir * 500.f;
         }
 
         void update(float deltaTime) {
@@ -53,9 +52,8 @@ public:
 
 
     void update(float deltaTime, Vector2f playerPos, Grid& grid) {
-        agent.PerformAction();
+        agent.PerformAction(state);
 
-        // 1. Si les munitions sont vides, chercher la zone de recharge
         if (state.Empthy()) {
             Vector2f reloadPos = grid.findReloadZone();
             std::cout << "[ShooterEnemy] Recherche de la zone 'R' : ("
@@ -76,32 +74,23 @@ public:
                         std::cout << "[ShooterEnemy] Zone non accessible !\n";
                     }
                 }
-                else {
-                    std::cout << "[ShooterEnemy] Zone atteinte. Rechargement...\n";
-                    state.Reload(5);
-                }
             }
         }
-
-        // 2. Si les munitions ont été trouvées (zone atteinte), recharger
         else if (state.AmmoFind()) {
             std::cout << "[ShooterEnemy] Rechargement en cours...\n";
-            state.Reload(5);  // Recharge complète
-            state.ammoFind = false;  // Munitions trouvées, prêt à tirer
+            state.Reload(5);
+            state.ammoFind = false;
         }
 
-        // 3. Si l'ennemi a des munitions, poursuivre le joueur et tirer
-        else if (state.Ammo() > 0) {
+        else if (!state.Empthy()) {
             Vector2f direction = playerPos - shape.getPosition();
             float length = sqrt(direction.x * direction.x + direction.y * direction.y);
 
-            // Déplacement vers le joueur
             if (length > 1.0f) {
                 direction /= length;
                 shape.move(direction * 30.0f * deltaTime);
             }
 
-            // Tir si le joueur est à portée
             if (length < 500.f) {
                 static Clock fireClock;
                 if (fireClock.getElapsedTime().asSeconds() > 1.0f) {
@@ -113,12 +102,10 @@ public:
             }
         }
 
-        // 4. Mise à jour des projectiles
         for (auto& projectile : projectiles) {
             projectile.update(deltaTime);
         }
 
-        // 5. Supprimer les projectiles hors écran
         projectiles.erase(std::remove_if(projectiles.begin(), projectiles.end(),
             [](const Projectile& p) {
                 auto pos = p.shape.getPosition();

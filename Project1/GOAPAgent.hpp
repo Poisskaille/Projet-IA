@@ -3,18 +3,15 @@
 
 class GOAPAgent {
 private:
-	State state;
 	GOAPPlanner planner;
     sf::Clock actionClock;
     float actionCooldown = 1.0f;
 
 public:
-	GOAPAgent() {
-		state.Shoot(5);
-        state.SetEmpthy(false);
-	}
 
-    void PerformAction() {
+	GOAPAgent() {}
+
+    void PerformAction(State& state) {
         Goal goal;
         if (actionClock.getElapsedTime().asSeconds() < actionCooldown) {
             return; 
