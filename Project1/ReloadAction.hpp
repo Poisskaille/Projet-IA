@@ -9,12 +9,7 @@ public:
     }
 
     void execute(State& state) override {
-        if (state.AmmoFind()) {
-            state.Reload(5);
-            state.SetEmpthy(false);
-            state.ammoFind = false;
-        }
-        /*std::cout << "C'est ce qu'il me fallait. \n";*/
+        state.SetAmmoFind(true);
         std::cout << "[ReloadAction] Rechargement terminé.\n";
     }
 };

@@ -22,6 +22,7 @@ public:
 		if (ammo == 0) empthy = true;
 	}
 	void SetEmpthy(bool vide) { empthy = vide; }
+	void SetAmmoFind(bool ammo) { ammoFind = ammo; }
 };
 
 #endif

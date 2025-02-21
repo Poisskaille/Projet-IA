@@ -29,8 +29,6 @@ int main() {
     while (window.isOpen()) {
         Time dt = clock.restart();
         float deltaTime = dt.asSeconds();
-
-        enemyAgent.PerformAction();
         
         Event event;
         while (window.pollEvent(event)) {
