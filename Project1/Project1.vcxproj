@@ -157,6 +157,7 @@
     <ClCompile Include="ReloadAction.hpp" />
     <ClCompile Include="ShootAction.cpp" />
     <ClCompile Include="ShooterEnemy.cpp" />
+    <ClCompile Include="TraperEnemy.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Action.hpp" />
@@ -184,6 +185,7 @@
     <ClInclude Include="SequencePatrouille.hpp" />
     <ClInclude Include="ShootAction.hpp" />
     <ClInclude Include="ShooterEnemy.hpp" />
+    <ClInclude Include="TraperEnemy.hpp" />
     <ClInclude Include="TriggerAlarm.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

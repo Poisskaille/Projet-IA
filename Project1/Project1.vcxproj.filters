@@ -105,6 +105,9 @@
     <ClCompile Include="MoveToReloadAction.cpp">
       <Filter>Fichiers sources\GOAP</Filter>
     </ClCompile>
+    <ClCompile Include="TraperEnemy.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Entity.hpp">
@@ -184,6 +187,9 @@
     </ClInclude>
     <ClInclude Include="ScanArea.hpp">
       <Filter>Fichiers d%27en-tête\BehaviorTree\Patrouille</Filter>
+    </ClInclude>
+    <ClInclude Include="TraperEnemy.hpp">
+      <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

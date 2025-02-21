@@ -20,6 +20,8 @@ void EnemyManager::update(RenderWindow& window, float deltaTime, Grid& grid,cons
 		enemy->rayCasting(grid, window);
 	}
 
+	for (auto& enemy : m_traper_enemies) { enemy->update(deltaTime, grid, playerPos); }
+
 	for (auto& enemy : m_shooter_enemies) { enemy->update(deltaTime, grid, playerPos); }
 
 	if (checkFOV(playerBounds)) {
@@ -40,6 +42,9 @@ void EnemyManager::draw(RenderWindow& window)
 	for (auto& enemy : m_shooter_enemies) {
 		enemy->draw(window);
 	}
+	for (auto& enemy : m_traper_enemies) {
+		enemy->draw(window);
+	}
 }
 
 void EnemyManager::createMGSPatrol(float posX, float posY, Vector2i p1, Vector2i p2, Vector2i p3)
@@ -48,6 +53,10 @@ void EnemyManager::createMGSPatrol(float posX, float posY, Vector2i p1, Vector2i
 
 void EnemyManager::createShooterEnemy(float posX, float posY, Grid& grid) 
 { m_shooter_enemies.push_back(make_unique<ShooterEnemy>(posX, posY, grid)); }
+
+void EnemyManager::createTraperEnemy(float posX, float posY, Grid& grid)
+{ m_traper_enemies.push_back(make_unique<TraperEnemy>(posX, posY, grid)); }
+
 
 void EnemyManager::setMenacedState()
 { for (auto& enemy : m_mgs_enemies) { enemy->setMenacedState(); } }
@@ -59,6 +68,7 @@ void EnemyManager::setNormalState()
 void EnemyManager::deleteAllEnemy() {
 	m_mgs_enemies.clear();
 	m_shooter_enemies.clear();
+	m_traper_enemies.clear();
 }
 
 bool EnemyManager::checkCollision(const FloatRect& playerBounds)
