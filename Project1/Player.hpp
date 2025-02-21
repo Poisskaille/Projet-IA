@@ -2,6 +2,7 @@
 #define PLAYER_HPP
 
 #include "Entity.hpp"
+#include "ShooterEnemy.hpp"
 #include "FootStepsManager.hpp"
 
 extern FootStepManager stepmanager;
@@ -11,6 +12,8 @@ public:
     float SPEED = 200.0f;
     Player(float x, float y);
     void update(float deltaTime, Grid& grid, const Vector2f& playerPos) override;
+
+    void checkProjectileCollision(std::vector<ShooterEnemy::Projectile>& projectiles) const;
     
     CircleShape getStunZone();
     bool getStun();

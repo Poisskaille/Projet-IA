@@ -20,6 +20,7 @@ struct Cell {
     bool walkable;
     Vector2f position;
     RectangleShape shape;
+    bool isReloadZone = false;
 };
 
 class Grid {
@@ -31,6 +32,7 @@ public:
 
     Cell& getCell(int x, int y);
     bool isWalkable(Vector2f pos);
+    Vector2f findReloadZone();
 private:
     vector<vector<Cell>> cells;
     string currentMap;
