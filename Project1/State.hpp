@@ -12,8 +12,16 @@ public:
 	bool Empthy() const { return empthy; }
 	bool AmmoFind() const { return ammoFind; }
 
-	void Reload(int munitions, bool vide) { ammo = munitions; empthy = vide; }
-	void Shoot(int munitions) { ammo - munitions; }
+	void Reload(int munition) {
+		ammo = munition;
+		empthy = (ammo == 0);
+		ammoFind = false;
+	}
+	void Shoot(int munitions) {
+		ammo = std::max(0, ammo - munitions);
+		if (ammo == 0) empthy = true;
+	}
+	void SetEmpthy(bool vide) { empthy = vide; }
 };
 
 #endif

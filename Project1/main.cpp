@@ -7,6 +7,7 @@
 
 FootStepManager stepmanager;
 EnemyManager manager;
+GOAPAgent enemyAgent;
 
 const int WINDOW_WIDTH = 800;
 const int WINDOW_HEIGHT = 600;
@@ -29,6 +30,8 @@ int main() {
         Time dt = clock.restart();
         float deltaTime = dt.asSeconds();
 
+        enemyAgent.PerformAction();
+        
         Event event;
         while (window.pollEvent(event)) {
             if (event.type == Event::Closed)
@@ -63,7 +66,7 @@ int main() {
 
         window.draw(player.getStunZone());
         window.draw(player.shape);
-        manager.update(window,deltaTime,grid,player.shape.getGlobalBounds(),player.shape.getPosition(),player.SPEED,player.getStunZone().getGlobalBounds(),player.getStun());
+        manager.update(window,deltaTime,grid,player.shape.getGlobalBounds(),player.shape.getPosition(),player.SPEED,player.getStunZone().getGlobalBounds(),player.getStun(), player);
 
         camera1.update(deltaTime,grid);
         camera1.draw(window);

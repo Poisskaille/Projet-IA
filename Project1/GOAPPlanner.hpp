@@ -1,23 +1,36 @@
 #ifndef GOAPPLANNER_HPP
 #define GOAPPLANNER_HPP
-#include "Action.hpp"
+#include "ShootAction.hpp"
+#include "MoveToReloadAction.hpp"
+#include "ReloadAction.hpp"
 #include <vector>
+enum class Goal {
+    Tirer,
+    Recharcher,
+    ChercherMunitions
+};
 
 class GOAPPlanner {
-private:
-    std::vector<Action*> actions;
-
 public:
-    void addAction(Action* action) { actions.push_back(action); }
+    std::vector<Action*> Plan(const State& initialState, Goal goal) {
+        std::vector<Action*> plan;
 
-    void planAndExecute(State& state) {
-        for (auto* action : actions) {
-            if (action->canExecute(state)) {
-                action->execute(state);
-                break;
-            }
+        if (goal == Goal::Tirer && initialState.Ammo() > 0) {
+            plan.push_back(new ShootAction());
         }
+
+        if (goal == Goal::Recharcher && initialState.AmmoFind()) {
+            plan.push_back(new ReloadAction());
+        }
+
+        if (goal == Goal::ChercherMunitions && initialState.Empthy()) {
+            plan.push_back(new MoveToReloadAction());
+        }
+
+        return plan;
     }
+
+
 };
 
 #endif

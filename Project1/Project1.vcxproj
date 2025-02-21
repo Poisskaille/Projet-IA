@@ -137,7 +137,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Action.cpp" />
     <ClCompile Include="AlerteAll.cpp" />
     <ClCompile Include="CameraMGS.cpp" />
     <ClCompile Include="ConditionAlerte.cpp" />
@@ -154,8 +153,6 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="ReloadAction.hpp" />
     <ClCompile Include="RotateCamera.cpp" />
-    <ClCompile Include="ShootAction.cpp" />
-    <ClCompile Include="ShooterEnemy.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Action.hpp" />

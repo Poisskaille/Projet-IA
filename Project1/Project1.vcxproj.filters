@@ -81,29 +81,17 @@
     <ClCompile Include="CameraMGS.cpp">
       <Filter>Fichiers sources\BehaviorTree</Filter>
     </ClCompile>
-    <ClCompile Include="ReloadAction.cpp">
-      <Filter>Fichiers sources\GOAP</Filter>
-    </ClCompile>
-    <ClCompile Include="Action.cpp">
-      <Filter>Fichiers sources\GOAP</Filter>
-    </ClCompile>
-    <ClCompile Include="Goal.cpp">
-      <Filter>Fichiers sources\GOAP</Filter>
-    </ClCompile>
-    <ClCompile Include="GOAPPlanner.cpp">
-      <Filter>Fichiers sources\GOAP</Filter>
-    </ClCompile>
     <ClCompile Include="PatrolMGS.cpp">
       <Filter>Fichiers sources\FSM</Filter>
     </ClCompile>
-    <ClCompile Include="ShooterEnemy.cpp">
-      <Filter>Fichiers sources\GOAP</Filter>
+    <ClCompile Include="AlerteAll.cpp">
+      <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="ShootAction.cpp">
-      <Filter>Fichiers sources\GOAP</Filter>
+    <ClCompile Include="ConditionAlerte.cpp">
+      <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="MoveToReloadAction.cpp">
-      <Filter>Fichiers sources\GOAP</Filter>
+    <ClCompile Include="RotateCamera.cpp">
+      <Filter>Fichiers sources</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -137,9 +125,6 @@
     <ClInclude Include="PatrolMGS.hpp">
       <Filter>Fichiers d%27en-tête\FSM</Filter>
     </ClInclude>
-    <ClInclude Include="Goal.hpp">
-      <Filter>Fichiers d%27en-tête\GOAP</Filter>
-    </ClInclude>
     <ClInclude Include="GOAPPlanner.hpp">
       <Filter>Fichiers d%27en-tête\GOAP</Filter>
     </ClInclude>
@@ -152,13 +137,7 @@
     <ClInclude Include="ShootAction.hpp">
       <Filter>Fichiers d%27en-tête\GOAP</Filter>
     </ClInclude>
-    <ClInclude Include="BTNode.hpp">
-      <Filter>Fichiers d%27en-tête\BehaviorTree</Filter>
-    </ClInclude>
     <ClInclude Include="SelectorNode.hpp">
-      <Filter>Fichiers d%27en-tête\BehaviorTree</Filter>
-    </ClInclude>
-    <ClInclude Include="Blackboard.hpp">
       <Filter>Fichiers d%27en-tête\BehaviorTree</Filter>
     </ClInclude>
     <ClInclude Include="CameraMGS.hpp">
@@ -170,20 +149,29 @@
     <ClInclude Include="SequencePatrouille.hpp">
       <Filter>Fichiers d%27en-tête\BehaviorTree\Patrouille</Filter>
     </ClInclude>
-    <ClInclude Include="SequenceDetection.hpp">
-      <Filter>Fichiers d%27en-tête\BehaviorTree\Detection</Filter>
-    </ClInclude>
-    <ClInclude Include="CheckPlayer.hpp">
-      <Filter>Fichiers d%27en-tête\BehaviorTree\Detection</Filter>
-    </ClInclude>
     <ClInclude Include="TriggerAlarm.hpp">
       <Filter>Fichiers d%27en-tête\BehaviorTree\Detection</Filter>
     </ClInclude>
     <ClInclude Include="RotateCamera.hpp">
       <Filter>Fichiers d%27en-tête\BehaviorTree\Patrouille</Filter>
     </ClInclude>
-    <ClInclude Include="ScanArea.hpp">
-      <Filter>Fichiers d%27en-tête\BehaviorTree\Patrouille</Filter>
+    <ClInclude Include="AlerteAll.hpp">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="BehaviorNode.hpp">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="ConditionAlerte.hpp">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="SequenceAlerte.hpp">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="State.hpp">
+      <Filter>Fichiers d%27en-tête\GOAP</Filter>
+    </ClInclude>
+    <ClInclude Include="GOAPAgent.hpp">
+      <Filter>Fichiers d%27en-tête\GOAP</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
