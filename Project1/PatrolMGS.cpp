@@ -27,7 +27,7 @@ void PatrolMGS::update(float deltaTime, Grid& grid, const Vector2f& playerPos)
         break;
     case State::MENACE:
         RandomChase(deltaTime, grid);
-        if (m_delay.getElapsedTime().asSeconds() > 10) { setNormalState(); newRandomPos = false; }
+        if (m_delay.getElapsedTime().asSeconds() > 10) { setNormalState(); newRandomPos = false; m_canMove = true; }
         break;
     case State::ALERTE:
             chase(playerPos, deltaTime, grid);
@@ -191,7 +191,7 @@ void PatrolMGS::setMenacedState()
     m_delay.restart();
     m_state = State::MENACE;
     m_time = 0.f;
-	SPEED = 200.f;
+	SPEED = 175.f;
 	shape.setFillColor(Color::Yellow);
 }
 
