@@ -3,7 +3,7 @@
 #include <SFML/Window/Keyboard.hpp>
 #include "Grid.hpp"
 
-Player::Player(float x, float y) : Entity(x, y, Color::Blue) {
+Player::Player(float x, float y) : Entity(x, y) {
     m_stunZone.setRadius(30);
     m_stunZone.setOrigin(20,20);
     m_stunZone.setPosition(shape.getPosition());
@@ -43,6 +43,18 @@ void Player::update(float deltaTime, Grid& grid,const Vector2f& playerPos) {
         isWalkable(newBounds.left, newBounds.top + newBounds.height - 1) &&
         isWalkable(newBounds.left + newBounds.width - 1, newBounds.top + newBounds.height - 1)) {
         shape.move(movement);
+    }
+}
+
+void Player::checkProjectileCollision(std::vector<ShooterEnemy::Projectile>& projectiles) const{
+    for (auto it = projectiles.begin(); it != projectiles.end();) {
+        if (shape.getGlobalBounds().intersects(it->shape.getGlobalBounds())) {
+            std::cout << "Ouch (collision)" << std::endl;
+            it = projectiles.erase(it);
+        }
+        else {
+            ++it;
+        }
     }
 }
 

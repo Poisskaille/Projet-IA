@@ -11,6 +11,7 @@
 
 FootStepManager stepmanager;
 EnemyManager manager;
+GOAPAgent enemyAgent;
 
 const int WINDOW_WIDTH = 800;
 const int WINDOW_HEIGHT = 600;
@@ -26,12 +27,15 @@ int main() {
     grid.loadFromFile("map.txt",manager);
 
     CameraMGS camera1({ 700,500 }, 90, 280);
+    camera1.initTree(grid, manager, player);
     Clock clock;
 
     while (window.isOpen()) {
         Time dt = clock.restart();
         float deltaTime = dt.asSeconds();
 
+        enemyAgent.PerformAction();
+        
         Event event;
         while (window.pollEvent(event)) {
             if (event.type == Event::Closed)
@@ -49,11 +53,13 @@ int main() {
         if (Keyboard::isKeyPressed(Keyboard::M)) {
             grid.loadFromFile("map2.txt", manager);
             player.shape.setPosition(100, 100);
+            camera1.setDrawable(false);
         }
 
         if (Keyboard::isKeyPressed(Keyboard::L)) {
             grid.loadFromFile("map.txt", manager);
             player.shape.setPosition(100, 500);
+            camera1.setDrawable(true);
         }
 
         if (Keyboard::isKeyPressed(Keyboard::K)) {
@@ -71,7 +77,7 @@ int main() {
 
         window.draw(player.getStunZone());
         window.draw(player.shape);
-        manager.update(window,deltaTime,grid,player.shape.getGlobalBounds(),player.shape.getPosition(),player.SPEED,player.getStunZone().getGlobalBounds(),player.getStun());
+        manager.update(window,deltaTime,grid,player.shape.getGlobalBounds(),player.shape.getPosition(),player.SPEED,player.getStunZone().getGlobalBounds(),player.getStun(), player);
 
         camera1.update(deltaTime,grid);
         camera1.draw(window);

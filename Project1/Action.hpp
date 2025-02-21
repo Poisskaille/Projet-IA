@@ -1,25 +1,13 @@
 #ifndef ACTION_HPP
 #define ACTION_HPP
-
-#include <SFML/Graphics.hpp>
-#include <SFML/System.hpp>
-#include <string>
-using namespace std;
+#include "State.hpp"
+#include <iostream>
 
 class Action {
 public:
-    Action(string name, float cost);
+    virtual bool canExecute(const State& state) = 0;
+    virtual void execute(State& state) = 0;
     virtual ~Action() = default;
-
-    float getCost() const;
-    string getName() const;
-
-    virtual bool canExecute() = 0;
-    virtual void execute() = 0;
-
-protected:
-    string m_name;
-    float m_cost;
 };
 
 #endif

@@ -4,7 +4,7 @@
 
 
 void EnemyManager::update(RenderWindow& window, float deltaTime, Grid& grid,const FloatRect& playerBounds,
-	const Vector2f playerPos,const float& playerSpeed, const FloatRect& stunzone, bool stun)
+	const Vector2f playerPos,const float& playerSpeed, const FloatRect& stunzone, bool stun, const Player& player)
 {
 
 	if (!m_soundInit) {
@@ -22,7 +22,12 @@ void EnemyManager::update(RenderWindow& window, float deltaTime, Grid& grid,cons
 
 	for (auto& enemy : m_traper_enemies) { enemy->update(deltaTime, grid, playerPos); }
 
-	for (auto& enemy : m_shooter_enemies) { enemy->update(deltaTime, grid, playerPos); }
+	for (auto& enemy : m_shooter_enemies) {
+		enemy->update(deltaTime, playerPos, grid);
+		enemy->getAgent().PerformAction();
+		enemy->draw(window);
+		player.checkProjectileCollision(enemy->getProjectiles());
+	}
 
 	if (checkFOV(playerBounds)) {
 		for (auto& enemy : m_mgs_enemies) {
@@ -51,8 +56,9 @@ void EnemyManager::createMGSPatrol(float posX, float posY, Vector2i p1, Vector2i
 { m_mgs_enemies.push_back(make_unique<PatrolMGS>(posX, posY, p1, p2, p3)); }
 
 
-void EnemyManager::createShooterEnemy(float posX, float posY, Grid& grid) 
-{ m_shooter_enemies.push_back(make_unique<ShooterEnemy>(posX, posY, grid)); }
+void EnemyManager::createShooterEnemy(float posX, float posY, Grid& grid) {
+	m_shooter_enemies.push_back(make_unique<ShooterEnemy>(posX, posY));
+}
 
 void EnemyManager::createTraperEnemy(float posX, float posY, Grid& grid)
 { m_traper_enemies.push_back(make_unique<TraperEnemy>(posX, posY, grid)); }

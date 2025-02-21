@@ -38,12 +38,28 @@ void Grid::loadFromFile(const string& filename, EnemyManager& manager) {
         if (!getline(file, line)) break;
         for (int x = 0; x < GRID_WIDTH && x < line.size(); ++x) {
             cells[y][x].walkable = (line[x] == '0' || line[x] == '2' || line[x] == '3' || line[x] == '4');
+            if (line[x] == 'R') {
+                cells[y][x].shape.setFillColor(Color::Magenta);
+                cells[y][x].isReloadZone = true;
+                cells[y][x].walkable = true;
+            }
             if (!cells[y][x].walkable) {    
                 cells[y][x].shape.setFillColor(Color::White);
             }
         }
     }
     spawnEnemies(manager, filename);
+}
+
+Vector2f Grid::findReloadZone() {
+    for (int y = 0; y < GRID_HEIGHT; ++y) {
+        for (int x = 0; x < GRID_WIDTH; ++x) {
+            if (cells[y][x].isReloadZone) {
+                return cells[y][x].position;
+            }
+        }
+    }
+    return Vector2f(-1, -1);
 }
 
 void Grid::spawnEnemies(EnemyManager& manager, const string& enemyFile) {

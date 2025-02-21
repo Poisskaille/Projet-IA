@@ -15,7 +15,7 @@ public:
     RectangleShape shape;
     Vector2f velocity;
 
-    Entity(float x, float y, Color color);
+    Entity(float x, float y);
     virtual void update(float deltaTime, Grid& grid, const Vector2f& playerPos) = 0;
 };
 

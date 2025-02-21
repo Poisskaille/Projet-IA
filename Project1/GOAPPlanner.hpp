@@ -1,23 +1,36 @@
-#ifndef GOAP_PLANNER_HPP
-#define GOAP_PLANNER_HPP
-
-#include "Action.hpp"
-#include "Goal.hpp"
+#ifndef GOAPPLANNER_HPP
+#define GOAPPLANNER_HPP
+#include "ShootAction.hpp"
+#include "MoveToReloadAction.hpp"
+#include "ReloadAction.hpp"
 #include <vector>
-#include <SFML/Graphics.hpp>
-#include <SFML/System.hpp>
-
-using namespace std;
+enum class Goal {
+    Tirer,
+    Recharcher,
+    ChercherMunitions
+};
 
 class GOAPPlanner {
 public:
-    void addAction(Action* action);
-    void addGoal(Goal goal);
-    Action* getBestAction();
+    std::vector<Action*> Plan(const State& initialState, Goal goal) {
+        std::vector<Action*> plan;
 
-private:
-    vector<Action*> m_actions;
-    vector<Goal> m_goals;
+        if (goal == Goal::Tirer && initialState.Ammo() > 0) {
+            plan.push_back(new ShootAction());
+        }
+
+        if (goal == Goal::Recharcher && initialState.AmmoFind()) {
+            plan.push_back(new ReloadAction());
+        }
+
+        if (goal == Goal::ChercherMunitions && initialState.Empthy()) {
+            plan.push_back(new MoveToReloadAction());
+        }
+
+        return plan;
+    }
+
+
 };
 
 #endif

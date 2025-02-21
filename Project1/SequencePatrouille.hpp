@@ -1,18 +1,21 @@
-#include "BTNode.hpp"
+#pragma once
+#include "BehaviorNode.hpp"
 
-class SequencePatrouille : public BTNode {
-private:
-    vector<unique_ptr<BTNode>> children;
+class SequencePatrouille : public BehaviorNode {
 public:
-    void AddChild(unique_ptr<BTNode> child) {
-        children.push_back(move(child));
+    void addChild(unique_ptr<BehaviorNode> child) {
+        m_children.push_back(move(child));
     }
-    NodeState execute() override {
-        for (auto& child : children) {
-            if (child->execute() == NodeState::FAILURE) {
-                return NodeState::FAILURE;
+
+    bool execute() override {
+        for (auto& child : m_children) {
+            if (!child->execute()) {
+                return false;
             }
         }
-        return NodeState::SUCCESS;
+        return true;
     }
+
+private:
+    vector<unique_ptr<BehaviorNode>> m_children;
 };
