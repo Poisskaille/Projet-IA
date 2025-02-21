@@ -49,11 +49,13 @@ int main() {
         if (Keyboard::isKeyPressed(Keyboard::M)) {
             grid.loadFromFile("map2.txt", manager);
             player.shape.setPosition(100, 100);
+            camera1.setDrawable(false);
         }
 
         if (Keyboard::isKeyPressed(Keyboard::L)) {
             grid.loadFromFile("map.txt", manager);
             player.shape.setPosition(100, 500);
+            camera1.setDrawable(true);
         }
 
 

@@ -90,6 +90,12 @@
     <ClCompile Include="ConditionAlerte.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
+    <ClCompile Include="AlerteAll.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="ConditionAlerte.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
     <ClCompile Include="RotateCamera.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
@@ -172,6 +178,20 @@
     </ClInclude>
     <ClInclude Include="GOAPAgent.hpp">
       <Filter>Fichiers d%27en-tête\GOAP</Filter>
+    <ClInclude Include="GOAPAgent.hpp">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="State.hpp">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="SequenceAlerte.hpp">
+      <Filter>Fichiers d%27en-tête\BehaviorTree\Detection</Filter>
+    </ClInclude>
+    <ClInclude Include="ConditionAlerte.hpp">
+      <Filter>Fichiers d%27en-tête\BehaviorTree\Detection</Filter>
+    </ClInclude>
+    <ClInclude Include="BehaviorNode.hpp">
+      <Filter>Fichiers d%27en-tête\BehaviorTree</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
