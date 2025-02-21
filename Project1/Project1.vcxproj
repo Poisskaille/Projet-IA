@@ -152,8 +152,6 @@
     <ClCompile Include="PatrolMGS.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="ReloadAction.hpp" />
-    <ClCompile Include="ShootAction.cpp" />
-    <ClCompile Include="ShooterEnemy.cpp" />
     <ClCompile Include="TraperEnemy.cpp" />
     <ClCompile Include="RotateCamera.cpp" />
   </ItemGroup>

@@ -64,6 +64,7 @@ int main() {
 
         if (Keyboard::isKeyPressed(Keyboard::K)) {
             grid.loadFromFile("map3.txt", manager);
+            camera1.setDrawable(false);
                 player.shape.setPosition(100, 500);
         }
 
